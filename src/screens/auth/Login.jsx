@@ -1,25 +1,41 @@
-import { Text, View, TextInput, Button } from "react-native";
+import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacity} from "react-native";
+import Button from "../../components/Button";
+import { loginStyle } from "./Login.style";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
 
-  return (
-    <View>
-      <View>Logo</View>
-      <View>
-        <Text>Header</Text>
-      </View>
+    const navigation = useNavigation();
 
-      <View>
-        <Text>Welcome Back!</Text>
-        <View>
-          <TextInput placeholder="Email"></TextInput>
-          <TextInput placeholder="Password"></TextInput>
-          <Button title="Login"></Button>
-        </View>
-        <View>
-          <Text>Don't have an account? Register here.</Text>
+  return (
+
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+
+      <View style={loginStyle.container}>
+        <View style={loginStyle.content}>
+          
+          <Image
+            style={loginStyle.logo}
+            source={{
+              uri: "https://res.cloudinary.com/dcdmmuhf2/image/upload/v1769720604/my-milestones/logo-demo-2_dtu9w7.png",
+            }}/>
+
+          <View style={loginStyle.inputContainer}>
+
+            <Text style={loginStyle.welcomeBackText}>Welcome back!</Text>
+             
+            <TextInput style={loginStyle.inputField} placeholder="Email"></TextInput>
+            <TextInput style={loginStyle.inputField} placeholder="Password"></TextInput>
+
+            <Button title="Login" style={loginStyle}></Button>
+
+            <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
+                <Text>Don't have an account? <Text style={loginStyle.dontHaveAccount}>Register here.</Text></Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
