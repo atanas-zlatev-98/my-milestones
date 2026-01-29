@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import ActiveMilestones from "../screens/ActiveMilestones";
-import Profile from "../screens/Profile";
+import ActiveMilestones from "../screens/ActiveMilestonesScreen";
+import Profile from "../screens/ProfileScreen";
 
 export default function TabNavigator(){
     const Tabs = createBottomTabNavigator();

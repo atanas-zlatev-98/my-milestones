@@ -1,5 +1,5 @@
 import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacity} from "react-native";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
 
