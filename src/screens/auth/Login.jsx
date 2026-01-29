@@ -9,7 +9,7 @@ export default function Login() {
 
   return (
 
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === "ios" ? "padding" : "height"}>
 
       <View style={loginStyle.container}>
         <View style={loginStyle.content}>

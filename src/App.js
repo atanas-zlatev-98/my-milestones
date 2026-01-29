@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import RootNavigator from "./navigations/RootNavigation";
 import AuthNavigation from "./navigations/AuthNavigation";
@@ -6,7 +6,7 @@ import AuthNavigation from "./navigations/AuthNavigation";
 export default function App() {
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{...DefaultTheme,colors:{...DefaultTheme.colors,background:'#FFF'}}}>
       <StatusBar style="auto"></StatusBar>
 
       {false ? <RootNavigator></RootNavigator> : <AuthNavigation></AuthNavigation>}
