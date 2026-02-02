@@ -2,6 +2,7 @@ import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacit
 import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
+import { KeyRound, Mail } from "lucide-react-native";
 
 export default function Login() {
 
@@ -24,8 +25,33 @@ export default function Login() {
 
             <Text style={loginStyle.welcomeBackText}>Welcome back!</Text>
              
-            <TextInput style={loginStyle.inputField} placeholder="Email"></TextInput>
-            <TextInput style={loginStyle.inputField} placeholder="Password"></TextInput>
+              <View style={loginStyle.group}>
+                <Text style={loginStyle.groupText}>Email <Text style={{color:'red'}}>*</Text></Text>
+
+                <View style={loginStyle.iconContainer}>
+
+                  <View style={loginStyle.icon}>
+                    <Mail size={24} color={'#5458b5'} />
+                  </View>
+
+                  <TextInput style={loginStyle.inputField} placeholder="Enter email..."></TextInput>
+                </View>
+
+              </View>
+           
+              <View style={loginStyle.group}>
+                <Text style={loginStyle.groupText}>Password <Text style={{color:'red'}}>*</Text></Text>
+
+                <View style={loginStyle.iconContainer}>
+
+                  <View style={loginStyle.icon}>
+                    <KeyRound size={24} color={'#5458b5'} />
+                  </View>
+
+                  <TextInput style={loginStyle.inputField} placeholder="Enter password..."></TextInput>
+                </View>
+
+              </View>
 
             <Button title="Login" style={loginStyle}></Button>
 

@@ -17,6 +17,10 @@ export const registerStyle = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  signUpText: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
   btn: {
     backgroundColor: "#5458b5",
     width: "100%",
@@ -35,18 +39,30 @@ export const registerStyle = StyleSheet.create({
     padding: 15,
     width: "100%",
   },
-  group:{
-        gap:5
+  group: {
+    gap: 5,
   },
-  groupText:{
-    fontSize:16,
-    paddingLeft:0
-  },    
+  groupText: {
+    fontSize: 16,
+    paddingLeft: 0,
+  },
   inputField: {
     backgroundColor: "#f7f7f7",
     borderRadius: 5,
     padding: 10,
     fontSize: 20,
+    flex: 1,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    backgroundColor: "#f7f7f7",
+    padding: 10,
+    paddingRight: 0,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
   },
   dontHaveAccount: {
     textDecorationLine: "underline",

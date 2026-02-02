@@ -39,11 +39,31 @@ export const loginStyle = StyleSheet.create({
     padding: 15,
     width:'100%'
   },
+  group:{
+        gap:5
+  },
+  groupText:{
+    fontSize:16,
+    paddingLeft:0
+  },
+  iconContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  icon:{
+    backgroundColor:'#f7f7f7',
+    padding:10,
+    paddingRight:0,
+    borderTopLeftRadius:5,
+    borderBottomLeftRadius:5,
+  },
   inputField: {
     backgroundColor: "#f7f7f7",
-    borderRadius:5,
     padding:10,
-    fontSize:20
+    borderTopRightRadius:5,
+    borderBottomRightRadius:5,
+    fontSize:20,
+    flex:1
   },
   dontHaveAccount:{
     textDecorationLine:"underline",
