@@ -8,7 +8,7 @@ export default function AuthNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" options={{title:'Login',headerShown:false}} component={Login}></Stack.Screen>
-      <Stack.Screen name="Register" component={Register}></Stack.Screen>
+      <Stack.Screen name="Register" options={{headerTitle:"",headerShown:false,headerStyle:{backgroundColor:'#FFF'},headerShadowVisible: false}} component={Register}></Stack.Screen>
     </Stack.Navigator>
   );
 }

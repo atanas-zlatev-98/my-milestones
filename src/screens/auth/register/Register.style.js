@@ -1,0 +1,55 @@
+import { StyleSheet } from "react-native";
+
+export const registerStyle = StyleSheet.create({
+  container: {
+    backgroundColor: "#FFF",
+    flex: 1,
+  },
+  content: {
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  logo: {
+    width: 150,
+    height: 150,
+  },
+  btn: {
+    backgroundColor: "#5458b5",
+    width: "100%",
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10,
+  },
+  inputContainer: {
+    flexDirection: "column",
+    gap: 10,
+    padding: 15,
+    width: "100%",
+  },
+  group:{
+        gap:5
+  },
+  groupText:{
+    fontSize:16,
+    paddingLeft:0
+  },    
+  inputField: {
+    backgroundColor: "#f7f7f7",
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 20,
+  },
+  dontHaveAccount: {
+    textDecorationLine: "underline",
+    color: "blue",
+  },
+});
