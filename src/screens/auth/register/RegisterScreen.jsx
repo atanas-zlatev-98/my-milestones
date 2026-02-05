@@ -1,9 +1,19 @@
 import { KeyboardAvoidingView, Platform, Text, View, Image, TextInput, TouchableOpacity} from "react-native";
+import { useState } from "react";
 import { registerStyle } from "./Register.style";
 import Button from "../../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { IdCard, User, AtSign, KeyRound, RotateCcwKey} from "lucide-react-native";
+
+
 export default function Register() {
+
+  const [name,setName] = useState('');
+  const [username,setUsername] = useState('');
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [confirmPassword,setConfirmPassword] = useState('');
+
   const navigation = useNavigation();
 
   return (
@@ -34,7 +44,7 @@ export default function Register() {
                   <IdCard size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Enter your full name..."></TextInput>
+                <TextInput style={registerStyle.inputField} placeholder="Enter your full name..." onChangeText={setName}></TextInput>
               </View>
             </View>
 
@@ -47,7 +57,7 @@ export default function Register() {
                   <User size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Enter a username... "></TextInput>
+                <TextInput style={registerStyle.inputField} placeholder="Enter a username... " onChangeText={setUsername}></TextInput>
               </View>
 
               
@@ -62,7 +72,7 @@ export default function Register() {
                   <AtSign size={24} color={"#5458b5"} />
                 </View>
 
-                 <TextInput style={registerStyle.inputField} placeholder="Your email address... "></TextInput>
+                 <TextInput style={registerStyle.inputField} placeholder="Your email address... " onChangeText={setEmail}></TextInput>
               </View>
 
              
@@ -77,7 +87,7 @@ export default function Register() {
                   <KeyRound size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Enter password"></TextInput>
+                <TextInput style={registerStyle.inputField} placeholder="Enter password" onChangeText={setPassword}></TextInput>
               </View>
             </View>
 
@@ -90,7 +100,7 @@ export default function Register() {
                   <RotateCcwKey size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Re-enter password"></TextInput>
+                <TextInput style={registerStyle.inputField} placeholder="Re-enter password" onChangeText={setConfirmPassword}></TextInput>
               </View>
 
             </View>

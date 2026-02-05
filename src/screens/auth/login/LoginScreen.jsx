@@ -1,4 +1,5 @@
 import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacity} from "react-native";
+import { useState } from "react";
 import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +8,9 @@ import { KeyRound, Mail } from "lucide-react-native";
 export default function Login() {
 
     const navigation = useNavigation();
+
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
 
   return (
 
@@ -34,7 +38,7 @@ export default function Login() {
                     <Mail size={24} color={'#5458b5'} />
                   </View>
 
-                  <TextInput style={loginStyle.inputField} placeholder="Enter email..."></TextInput>
+                  <TextInput style={loginStyle.inputField} placeholder="Enter email..." onChangeText={setEmail}></TextInput>
                 </View>
 
               </View>
@@ -48,7 +52,7 @@ export default function Login() {
                     <KeyRound size={24} color={'#5458b5'} />
                   </View>
 
-                  <TextInput style={loginStyle.inputField} placeholder="Enter password..."></TextInput>
+                  <TextInput style={loginStyle.inputField} placeholder="Enter password..." onChangeText={setPassword}></TextInput>
                 </View>
 
               </View>

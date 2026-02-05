@@ -1,13 +1,18 @@
-import { createStackNavigator } from "@react-navigation/stack"
+import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./TabNavigation";
+import { StackScreen } from "react-native-screens";
+import AuthNavigator from "./AuthNavigation";
 
-export default function RootNavigator(){
+export default function RootNavigator() {
+  const Stack = createStackNavigator();
 
-    const Stack = createStackNavigator();
-
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="TabNavigator" component={TabNavigator}></Stack.Screen>
-        </Stack.Navigator>
-    )
+  return (
+    <Stack.Navigator>
+      {false ? (
+        <Stack.Screen name="TabNavigator" component={TabNavigator} ></Stack.Screen>
+    ) : (
+        <Stack.Screen name="AuthNavigator" options={{headerShown:false}} component={AuthNavigator}></Stack.Screen>
+    )}
+    </Stack.Navigator>
+  );
 }
