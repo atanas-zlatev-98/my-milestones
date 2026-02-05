@@ -1,16 +1,24 @@
 import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacity} from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
 import { KeyRound, Mail } from "lucide-react-native";
+import { AuthContext } from "../../../context/auth/AuthProvider";
 
 export default function Login() {
 
     const navigation = useNavigation();
 
+    const {login} = useContext(AuthContext);
+
+
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+
+    const handleLogin = async() =>{
+      await login(email,password);
+    }
 
   return (
 
@@ -57,7 +65,7 @@ export default function Login() {
 
               </View>
 
-            <Button title="Login" style={loginStyle}></Button>
+            <Button title="Login" style={loginStyle} onPress={handleLogin}></Button>
 
             <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
                 <Text>Don't have an account? <Text style={loginStyle.dontHaveAccount}>Register here.</Text></Text>
