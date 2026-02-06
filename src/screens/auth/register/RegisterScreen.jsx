@@ -1,18 +1,24 @@
 import { KeyboardAvoidingView, Platform, Text, View, Image, TextInput, TouchableOpacity} from "react-native";
-import { useState } from "react";
+import { use, useContext, useState } from "react";
 import { registerStyle } from "./Register.style";
 import Button from "../../../components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { IdCard, User, AtSign, KeyRound, RotateCcwKey} from "lucide-react-native";
+import { User, AtSign, KeyRound, RotateCcwKey} from "lucide-react-native";
+import { AuthContext } from "../../../context/auth/AuthProvider";
 
 
 export default function Register() {
 
+  const {register} = useContext(AuthContext);;
+
   const [name,setName] = useState('');
-  const [username,setUsername] = useState('');
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
+
+  const handleRegister = async() =>{
+    await register(name,email,password);
+  }
 
   const navigation = useNavigation();
 
@@ -41,26 +47,11 @@ export default function Register() {
               <View style={registerStyle.iconContainer}>
                 
                 <View style={registerStyle.icon}>
-                  <IdCard size={24} color={"#5458b5"} />
+                  <User size={24} color={"#5458b5"} />
                 </View>
 
                 <TextInput style={registerStyle.inputField} placeholder="Enter your full name..." onChangeText={setName}></TextInput>
               </View>
-            </View>
-
-            <View style={registerStyle.group}>
-              <Text style={registerStyle.groupText}>Username <Text style={{ color: "red" }}>*</Text></Text>
-
-               <View style={registerStyle.iconContainer}>
-                
-                <View style={registerStyle.icon}>
-                  <User size={24} color={"#5458b5"} />
-                </View>
-
-                <TextInput style={registerStyle.inputField} placeholder="Enter a username... " onChangeText={setUsername}></TextInput>
-              </View>
-
-              
             </View>
 
             <View style={registerStyle.group}>
@@ -105,7 +96,7 @@ export default function Register() {
 
             </View>
 
-            <Button title="Register" style={registerStyle}></Button>
+            <Button title="Register" style={registerStyle} onPress={handleRegister}></Button>
 
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text> Already a registered?{" "}<Text style={registerStyle.dontHaveAccount}>Login here.</Text></Text>
