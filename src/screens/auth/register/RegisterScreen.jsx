@@ -78,7 +78,7 @@ export default function Register() {
                   <KeyRound size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Enter password" onChangeText={setPassword}></TextInput>
+                <TextInput secureTextEntry={true} style={registerStyle.inputField} placeholder="Enter password" onChangeText={setPassword}></TextInput>
               </View>
             </View>
 
@@ -91,7 +91,7 @@ export default function Register() {
                   <RotateCcwKey size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={registerStyle.inputField} placeholder="Re-enter password" onChangeText={setConfirmPassword}></TextInput>
+                <TextInput secureTextEntry={true} style={registerStyle.inputField} placeholder="Re-enter password" onChangeText={setConfirmPassword}></TextInput>
               </View>
 
             </View>
