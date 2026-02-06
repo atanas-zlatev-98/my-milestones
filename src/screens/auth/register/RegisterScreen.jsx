@@ -1,15 +1,15 @@
 import { KeyboardAvoidingView, Platform, Text, View, Image, TextInput, TouchableOpacity} from "react-native";
-import { use, useContext, useState } from "react";
+import { useState } from "react";
 import { registerStyle } from "./Register.style";
 import Button from "../../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { User, AtSign, KeyRound, RotateCcwKey} from "lucide-react-native";
-import { AuthContext } from "../../../context/auth/AuthProvider";
+import useAuth from "../../../context/auth/useAuth";
 
 
 export default function Register() {
 
-  const {register} = useContext(AuthContext);;
+  const {register} = useAuth();
 
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');

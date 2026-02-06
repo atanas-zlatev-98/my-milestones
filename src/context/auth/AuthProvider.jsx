@@ -17,6 +17,7 @@ export const AuthContext = createContext({
 export default function AuthProvider({children}) {
 
     const [authState,setAuthState] = usePersistedState('auth',{user:null,authToken:null});
+    const [isLoading,setIsLoading] = useState(false);
 
     const login = async(email,password) =>{
 
@@ -60,7 +61,6 @@ export default function AuthProvider({children}) {
         setAuthState({user:null});
     }
 
-    const [isLoading,setIsLoading] = useState(false);
 
     const contextValue = {
         isAuthenticated:authState.user,

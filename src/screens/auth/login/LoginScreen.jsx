@@ -1,16 +1,16 @@
 import {Text,View,TextInput,Image,KeyboardAvoidingView,Platform, TouchableOpacity} from "react-native";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
 import { KeyRound, Mail } from "lucide-react-native";
-import { AuthContext } from "../../../context/auth/AuthProvider";
+import useAuth from "../../../context/auth/useAuth";
 
 export default function Login() {
 
     const navigation = useNavigation();
 
-    const {login} = useContext(AuthContext);
+    const {login} = useAuth();
 
 
     const [email,setEmail] = useState('');
