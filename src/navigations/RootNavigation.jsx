@@ -2,21 +2,19 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./TabNavigation";
 import AuthNavigator from "./AuthNavigation";
 import useAuth from "../context/auth/useAuth";
-import { ActivityIndicator } from "react-native";
 
 export default function RootNavigator() {
+  
   const Stack = createStackNavigator();
-  const {isAuthenticated,isLoading} = useAuth();
+  const { isAuthenticated } = useAuth();
+
   return (
-    <>
-    {isLoading ? <ActivityIndicator/> : (<Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isAuthenticated ? (
-        <Stack.Screen name="TabNavigator" component={TabNavigator} ></Stack.Screen>
-    ) : (
-        <Stack.Screen name="AuthNavigator" options={{headerShown:false}} component={AuthNavigator}></Stack.Screen>
-    )}
-    </Stack.Navigator>)}
-      </>
-    
+        <Stack.Screen name="App" component={TabNavigator} />
+      ) : (
+        <Stack.Screen name="Auth" component={AuthNavigator} />
+      )}
+    </Stack.Navigator>
   );
 }

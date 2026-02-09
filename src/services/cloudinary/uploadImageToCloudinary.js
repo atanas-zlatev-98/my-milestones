@@ -1,4 +1,9 @@
 export async function uploadImageToCloudinary(imageUri) {
+
+  if (!imageUri) {
+    throw new Error('No image provided');
+  }
+
   try {
     const formData = new FormData();
 

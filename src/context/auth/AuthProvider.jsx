@@ -8,6 +8,8 @@ export const AuthContext = createContext({
     isLoading:false,
     isAuthenticated:false,
     user:null,
+    error:null,
+    clearErrors: () => {},  
     login:async(email,password) => {},
     register:async(name,email,password,profilePictureUrl) => {},
     logout:async() => {},
@@ -18,11 +20,12 @@ export default function AuthProvider({children}) {
 
     const [authState,setAuthState] = usePersistedState('auth',{user:null,authToken:null});
     const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState(null);
 
     const login = async(email,password) =>{
-
+        
         try{
-            
+            setError(null);
             setIsLoading(true);
             const response = await signInWithEmailAndPassword(auth,email,password);
 
@@ -30,14 +33,14 @@ export default function AuthProvider({children}) {
             setAuthState({user:findUser,authToken:response.user.accessToken});
 
         }catch(err){
-            console.log(`Error during login: ${err.message}`)
+            setError('Invalid email or password!');
+            console.log(err)
         }finally{
             setIsLoading(false);
     }
-    }
+}
 
     const register = async(name,email,password,profilePictureUrl) =>{
-
         try{    
 
             setIsLoading(true);
@@ -51,7 +54,7 @@ export default function AuthProvider({children}) {
             setAuthState({user:findUser,authToken:newUser.accessToken});
             
         }catch(err){
-            console.log(`Error during registration: ${err.message}`)
+            setError('Registration failed!', err.message);
         }finally{
             setIsLoading(false)
         }
@@ -66,6 +69,8 @@ export default function AuthProvider({children}) {
         isAuthenticated:authState.user,
         isLoading,
         user:authState.user,
+        error,
+        clearErrors: () => setError(null),
         login,
         register,
         logout
@@ -77,3 +82,4 @@ export default function AuthProvider({children}) {
         </AuthContext.Provider>
     )
 }
+           
