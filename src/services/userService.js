@@ -15,10 +15,11 @@ export async function getUserById(userId) {
   };
 }
 
-export async function createDBUser(userId, name, email) {
+export async function createDBUser(userId, name, email,profilePictureUrl) {
   await setDoc(doc(db, "users", userId), {
     name,
     email,
+    profilePictureUrl,
     projects: [],
     createdAt: new Date(),
   });

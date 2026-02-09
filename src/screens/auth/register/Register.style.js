@@ -3,7 +3,10 @@ import { StyleSheet } from "react-native";
 export const registerStyle = StyleSheet.create({
   container: {
     backgroundColor: "#FFF",
-    flex: 1,
+    flexGrow: 1,
+    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     marginLeft: 10,
@@ -12,6 +15,7 @@ export const registerStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    width: "100%",
   },
   logo: {
     width: 150,

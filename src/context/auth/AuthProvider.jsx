@@ -9,7 +9,7 @@ export const AuthContext = createContext({
     isAuthenticated:false,
     user:null,
     login:async(email,password) => {},
-    register:async(name,email,password) => {},
+    register:async(name,email,password,profilePictureUrl) => {},
     logout:async() => {},
 });
 
@@ -36,7 +36,7 @@ export default function AuthProvider({children}) {
     }
     }
 
-    const register = async(name,email,password) =>{
+    const register = async(name,email,password,profilePictureUrl) =>{
 
         try{    
 
@@ -44,7 +44,7 @@ export default function AuthProvider({children}) {
             const response = await createUserWithEmailAndPassword(auth,email,password);
             const newUser = response.user;
 
-            await createDBUser(newUser.uid,name,email);
+            await createDBUser(newUser.uid,name,email,profilePictureUrl);
             
             const findUser = await getUserById(newUser.uid);
             
