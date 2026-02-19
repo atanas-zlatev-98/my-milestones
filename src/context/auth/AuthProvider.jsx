@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../../config/firebaseConfig.js";
 import { createDBUser, getUserById, userLogin, userRegister } from "../../services/userService.js";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged,signOut } from "firebase/auth";
 
 export const AuthContext = createContext({
     isLoading:false,
@@ -36,7 +36,7 @@ export default function AuthProvider({children}) {
             setIsLoading(true);
 
             const user = await userLogin(email,password);
-            const findUser = await getUserById(user.user.uid);
+            const findUser = await getUserById(user.uid);
 
             setAuthState({user:findUser});
 
@@ -51,7 +51,6 @@ export default function AuthProvider({children}) {
     const register = async(name,email,password,profilePictureUrl) =>{
         
         try{    
-
             setIsLoading(true);
 
             const user = await userRegister(email,password);
@@ -67,7 +66,12 @@ export default function AuthProvider({children}) {
     }
 
     const logout = async() =>{
-        setAuthState({user:null});
+        try{
+            await signOut(auth);
+            setAuthState({user:null});
+        }catch(err){
+            setError('Logout failed!', err.message);
+        }
     }
 
 
