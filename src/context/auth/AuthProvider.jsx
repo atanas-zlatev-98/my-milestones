@@ -22,8 +22,13 @@ export default function AuthProvider({children}) {
     const [error,setError] = useState(null);
 
     useEffect(()=>{
-        const unsubscribe = onAuthStateChanged(auth,(user)=>{
-            user ? setAuthState({user:user}) : setAuthState({user:null});
+        const unsubscribe = onAuthStateChanged(auth,async (user)=>{
+            if(user){
+                const dbUserInfo = await getUserById(user.uid);
+                setAuthState({user:dbUserInfo});
+            } else {
+                setAuthState({user:null});
+            }
         });
         return () => unsubscribe();
     },[])
@@ -36,9 +41,9 @@ export default function AuthProvider({children}) {
             setIsLoading(true);
 
             const user = await userLogin(email,password);
-            const findUser = await getUserById(user.uid);
+            const dbUserInfo = await getUserById(user.uid);
 
-            setAuthState({user:findUser});
+            setAuthState({user:dbUserInfo});
 
         }catch(err){
             setError('Invalid email or password!');
@@ -76,7 +81,7 @@ export default function AuthProvider({children}) {
 
 
     const contextValue = {
-        isAuthenticated:authState.user,
+        isAuthenticated:!!authState.user,
         isLoading,
         user:authState.user,
         error,
