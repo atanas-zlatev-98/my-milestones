@@ -1,8 +1,7 @@
-import { createContext, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../../../firebaseConfig.js";
-import { createDBUser, getUserById } from "../../services/userService.js";
-import { usePersistedState } from "../../hooks/usePersistedState.js";
+import { createContext, useEffect, useState } from "react";
+import { auth } from "../../config/firebaseConfig.js";
+import { createDBUser, getUserById, userLogin, userRegister } from "../../services/userService.js";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const AuthContext = createContext({
     isLoading:false,
@@ -18,19 +17,28 @@ export const AuthContext = createContext({
 
 export default function AuthProvider({children}) {
 
-    const [authState,setAuthState] = usePersistedState('auth',{user:null,authToken:null});
+    const [authState,setAuthState] = useState({user:null});
     const [isLoading,setIsLoading] = useState(false);
     const [error,setError] = useState(null);
+
+    useEffect(()=>{
+        const unsubscribe = onAuthStateChanged(auth,(user)=>{
+            user ? setAuthState({user:user}) : setAuthState({user:null});
+        });
+        return () => unsubscribe();
+    },[])
 
     const login = async(email,password) =>{
         
         try{
+
             setError(null);
             setIsLoading(true);
-            const response = await signInWithEmailAndPassword(auth,email,password);
 
-            const findUser = await getUserById(response.user.uid);
-            setAuthState({user:findUser,authToken:response.user.accessToken});
+            const user = await userLogin(email,password);
+            const findUser = await getUserById(user.user.uid);
+
+            setAuthState({user:findUser});
 
         }catch(err){
             setError('Invalid email or password!');
@@ -41,17 +49,15 @@ export default function AuthProvider({children}) {
 }
 
     const register = async(name,email,password,profilePictureUrl) =>{
+        
         try{    
 
             setIsLoading(true);
-            const response = await createUserWithEmailAndPassword(auth,email,password);
-            const newUser = response.user;
 
-            await createDBUser(newUser.uid,name,email,profilePictureUrl);
+            const user = await userRegister(email,password);
+            const createdUser = await createDBUser(user.uid,name,email,profilePictureUrl);
             
-            const findUser = await getUserById(newUser.uid);
-            
-            setAuthState({user:findUser,authToken:newUser.accessToken});
+            setAuthState({user:createdUser});
             
         }catch(err){
             setError('Registration failed!', err.message);

@@ -1,7 +1,21 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
+import { db } from "../config/firebaseConfig";
+
+
+export async function userLogin(email,password){
+  const response = await signInWithEmailAndPassword(auth,email,password);
+  return response.user;
+}
+
+export async function userRegister(email,password){
+  const response = await createUserWithEmailAndPassword(auth,email,password);
+  return response.user;
+}
 
 export async function getUserById(userId) {
+
   const user = doc(db, "users", userId);
   const userSnap = await getDoc(user);
 
@@ -23,4 +37,7 @@ export async function createDBUser(userId, name, email,profilePictureUrl) {
     projects: [],
     createdAt: new Date(),
   });
+
+  const user = await getUserById(userId);
+  return user;
 }

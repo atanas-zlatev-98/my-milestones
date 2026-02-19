@@ -10,7 +10,7 @@ import { uploadImageToCloudinary } from "../../../services/cloudinary/uploadImag
 import { registerSchema } from "../../../validation/validationSchemas.js";
 
 export default function Register() {
-  const { register } = useAuth();
+  const { register,error,clearErrors } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,6 +61,7 @@ export default function Register() {
           <View style={registerStyle.inputContainer}>
             <View style={{ marginBottom: 10 }}>
               <Text style={registerStyle.signUpText}>Sign Up!</Text>
+              {error && <Text style={{ color: "red" }}>{error}</Text>}
               <Text style={{ color: "#0000006a" }}>
                 All fields with <Text style={{ color: "red" }}>*</Text> are
                 required.
