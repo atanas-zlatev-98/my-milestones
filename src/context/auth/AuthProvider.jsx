@@ -2,12 +2,13 @@ import { createContext, useEffect, useState } from "react";
 import { auth } from "../../config/firebaseConfig.js";
 import { createDBUser, getUserById, userLogin, userRegister } from "../../services/userService.js";
 import { onAuthStateChanged,signOut } from "firebase/auth";
+import { getFirebaseAuthErrorMessage } from "../../config/firebaseMessage.js";
 
 export const AuthContext = createContext({
-    isLoading:false,
+    isLoading:null,
     isAuthenticated:false,
     user:null,
-    error:null,
+    error:null,  
     clearErrors: () => {},  
     login:async(email,password) => {},
     register:async(name,email,password,profilePictureUrl) => {},
@@ -55,19 +56,16 @@ export default function AuthProvider({children}) {
 }
 
     const register = async(name,email,password,profilePictureUrl) =>{
-        
-        try{    
-            setIsLoading(true);
 
+        try{
+                
             const user = await userRegister(email,password);
             const createdUser = await createDBUser(user.uid,name,email,profilePictureUrl);
             
             setAuthState({user:createdUser});
             
         }catch(err){
-            setError('Registration failed!', err.message);
-        }finally{
-            setIsLoading(false)
+            setError(getFirebaseAuthErrorMessage(err));
         }
     }
 
@@ -89,7 +87,8 @@ export default function AuthProvider({children}) {
         clearErrors: () => setError(null),
         login,
         register,
-        logout
+        logout,
+
     }
 
     return(

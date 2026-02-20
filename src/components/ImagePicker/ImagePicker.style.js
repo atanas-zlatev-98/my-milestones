@@ -3,13 +3,14 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container: {
         marginBottom: 16,
+        width: '100%',
     },
     picker: {
-        width: 200,
+        width: "100%",
         height: 200,
         overflow: 'hidden',
         backgroundColor: '#f7f7f7',
-        borderRadius:100,
+        borderRadius:5,
         borderColor: '#5458b5',
     },
     image: {

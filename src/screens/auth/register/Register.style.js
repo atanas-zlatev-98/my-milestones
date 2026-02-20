@@ -1,54 +1,36 @@
 import { StyleSheet } from "react-native";
 
 export const registerStyle = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFF",
+  scrollViewContent: {
+    padding: 16,
+    paddingTop: 0,
     flexGrow: 1,
-    width: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  topText: {
+    regText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "#5458b5",
+    },
+    createAccountText: {
+      fontSize: 24,
+      color: "black",
+      fontWeight: "bold",
+    },
   },
   content: {
-    marginLeft: 10,
-    marginRight: 10,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-    width: "100%",
-  },
-  logo: {
-    width: 150,
-    height: 150,
-  },
-  signUpText: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  btn: {
-    backgroundColor: "#5458b5",
-    width: "100%",
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  btnText: {
-    color: "#FFF",
-    fontSize: 20,
-    textAlign: "center",
-    padding: 10,
-  },
-  inputContainer: {
-    flexDirection: "column",
-    gap: 10,
-    padding: 15,
-    width: "100%",
-  },
-  group: {
     gap: 5,
   },
-  groupText: {
-    fontSize: 16,
-    paddingLeft: 0,
+  groups:{
+    flexDirection:'column',
+    gap:15
+  },
+  group: {
+    label: {
+      fontSize: 20,
+      marginBottom: 8,
+      fontWeight: "bold",
+    },
   },
   inputField: {
     backgroundColor: "#f7f7f7",
@@ -67,6 +49,18 @@ export const registerStyle = StyleSheet.create({
     paddingRight: 0,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
+  },
+  btn: {
+    backgroundColor: "#5458b5",
+    width: "100%",
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10,
   },
   dontHaveAccount: {
     textDecorationLine: "underline",
