@@ -42,7 +42,7 @@ export default function AuthProvider({children}) {
         
         try{
 
-            setError(null);
+            setError({loginError:null,registerError:null});
 
             const user = await userLogin(email,password);
             const dbUserInfo = await getUserById(user.uid);
@@ -83,7 +83,7 @@ export default function AuthProvider({children}) {
         isLoading,
         user:authState.user,
         error,
-        clearErrors: () => setError(null),
+        clearErrors: () => setError({loginError:null,registerError:null}),
         login,
         register,
         logout,

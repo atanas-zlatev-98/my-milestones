@@ -6,18 +6,38 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyRound, Mail } from "lucide-react-native";
 import useAuth from "../../../context/auth/useAuth";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { loginSchema } from "../../../validation/validationSchemas";
 
 export default function Login() {
   const navigation = useNavigation();
 
   const { login, error, clearErrors } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [validationErrors,setValidationErrors] = useState({});
+
 
 
   const handleLogin = async () => {
+
     clearErrors();
+    setValidationErrors({});
+    
+    const validation = loginSchema.safeParse({email,password});
+    
+    if(!validation.success){
+      
+      const formattedErrors= {};
+      
+      validation.error.issues.forEach((err) => {
+        formattedErrors[err.path[0]] = err.message;
+      });
+      setValidationErrors(formattedErrors);
+      return;
+    };
+    
     setIsLoading(true);
     await login(email, password);
     setIsLoading(false);
@@ -42,7 +62,7 @@ export default function Login() {
             {error.loginError && <Text style={{ color: "red" }}>{error.loginError}</Text>}
             <View style={loginStyle.group}>
               <Text style={loginStyle.groupText}>
-                Email
+                Email {validationErrors.email && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.email}</Text>)}
               </Text>
 
               <View style={loginStyle.iconContainer}>
@@ -61,7 +81,7 @@ export default function Login() {
 
             <View style={loginStyle.group}>
               <Text style={loginStyle.groupText}>
-                Password
+                Password {validationErrors.password && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.password}</Text>)}
               </Text>
 
               <View style={loginStyle.iconContainer}>
