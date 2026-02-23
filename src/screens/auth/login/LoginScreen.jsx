@@ -9,6 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { loginSchema } from "../../../validation/validationSchemas";
 
 export default function Login() {
+
   const navigation = useNavigation();
 
   const { login, error, clearErrors } = useAuth();
@@ -34,6 +35,7 @@ export default function Login() {
       validation.error.issues.forEach((err) => {
         formattedErrors[err.path[0]] = err.message;
       });
+
       setValidationErrors(formattedErrors);
       return;
     };
@@ -59,7 +61,7 @@ export default function Login() {
 
           <View style={loginStyle.inputContainer}>
             <Text style={loginStyle.welcomeBackText}>Welcome back!</Text>
-            {error.loginError && <Text style={{ color: "red" }}>{error.loginError}</Text>}
+            {error.loginError && <Text style={{ color: "red", fontWeight:'bold' }}>{error.loginError}</Text>}
             <View style={loginStyle.group}>
               <Text style={loginStyle.groupText}>
                 Email {validationErrors.email && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.email}</Text>)}

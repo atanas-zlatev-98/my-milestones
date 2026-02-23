@@ -43,6 +43,7 @@ export default function Register() {
       setErrors(formattedErrors);
       return;
     }
+
     setIsLoading(true);
     const profilePictureUrl = await uploadImageToCloudinary(imageUri);
     await register(name, email, password, profilePictureUrl);
@@ -77,7 +78,7 @@ export default function Register() {
                 imageUri={imageUri}
               ></ImagePicker>
 
-              {error.registerError && <Text style={{ color: "red" }}>{error.registerError}</Text>}
+              {error.registerError && <Text style={{ color: "red", fontWeight:'bold' }}>{error.registerError}</Text>}
             </View>
 
             <View style={registerStyle.groups}>
