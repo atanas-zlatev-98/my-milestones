@@ -20,7 +20,10 @@ export default function AuthProvider({children}) {
 
     const [authState,setAuthState] = useState({user:null});
     const [isLoading,setIsLoading] = useState(true);
-    const [error,setError] = useState(null);
+    const [error,setError] = useState({
+        loginError:null,
+        registerError:null,
+    });
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth,async (user)=>{
@@ -40,7 +43,6 @@ export default function AuthProvider({children}) {
         try{
 
             setError(null);
-            setIsLoading(true);
 
             const user = await userLogin(email,password);
             const dbUserInfo = await getUserById(user.uid);
@@ -48,11 +50,8 @@ export default function AuthProvider({children}) {
             setAuthState({user:dbUserInfo});
 
         }catch(err){
-            setError('Invalid email or password!');
-            console.log(err)
-        }finally{
-            setIsLoading(false);
-    }
+            setError({loginError:'Invalid email or password!',registerError:null});
+        }
 }
 
     const register = async(name,email,password,profilePictureUrl) =>{
@@ -65,7 +64,7 @@ export default function AuthProvider({children}) {
             setAuthState({user:createdUser});
             
         }catch(err){
-            setError(getFirebaseAuthErrorMessage(err));
+            setError({registerError:getFirebaseAuthErrorMessage(err),loginError:null});
         }
     }
 

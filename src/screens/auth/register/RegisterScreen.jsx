@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView,Platform,Text,View,TextInput,TouchableOpacity,ScrollView} from "react-native";
+import { KeyboardAvoidingView,Platform,Text,View,TextInput,TouchableOpacity,ScrollView, ActivityIndicator} from "react-native";
 import { useState } from "react";
 import { registerStyle } from "./Register.style";
 import Button from "../../../components/Button";
@@ -19,12 +19,12 @@ export default function Register() {
   const [imageUri, setImageUri] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const {register,error,isLoading} = useAuth();
+  const {register,error} = useAuth();
 
   const handleRegister = async () => {
     setErrors({});
-
     const result = registerSchema.safeParse({
       imageUri,
       name,
@@ -32,27 +32,30 @@ export default function Register() {
       password,
       confirmPassword,
     });
-
+    
     if (!result.success) {
       const formattedErrors = {};
-
+      
       result.error.issues.forEach((err) => {
         formattedErrors[err.path[0]] = err.message;
       });
-
+      
       setErrors(formattedErrors);
-
       return;
     }
+    setIsLoading(true);
     const profilePictureUrl = await uploadImageToCloudinary(imageUri);
     await register(name, email, password, profilePictureUrl);
+    setIsLoading(false);
   };
 
   const navigation = useNavigation();
   const headerHeight = useHeaderHeight();
-  console.log(isLoading);
+
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["left", "right", "bottom"]}>
+    <>
+    {!isLoading ? (
+      <SafeAreaView style={{ flex: 1 }} edges={["left", "right", "bottom"]}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -74,7 +77,7 @@ export default function Register() {
                 imageUri={imageUri}
               ></ImagePicker>
 
-              {error && <Text style={{ color: "red" }}>{error}</Text>}
+              {error.registerError && <Text style={{ color: "red" }}>{error.registerError}</Text>}
             </View>
 
             <View style={registerStyle.groups}>
@@ -175,7 +178,7 @@ export default function Register() {
               ></Button>
 
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight:'bold'}}>
+                <Text style={{fontWeight:'bold',marginBottom:30}}>
                   {" "}
                   Already registered?{" "}
                   <Text style={registerStyle.dontHaveAccount}>Login here.</Text>
@@ -186,5 +189,7 @@ export default function Register() {
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    ) : (<ActivityIndicator size="large" color="#5458b5" style={{ flex: 1, justifyContent: "center", alignItems: "center" }} />)}
+    </>
   );
 }

@@ -1,18 +1,11 @@
-import {
-  Text,
-  View,
-  TextInput,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, TextInput, Image, KeyboardAvoidingView, Platform, TouchableOpacity, ActivityIndicator} from "react-native";
 import { useState } from "react";
 import Button from "../../../components/Button";
 import { loginStyle } from "./Login.style";
 import { useNavigation } from "@react-navigation/native";
 import { KeyRound, Mail } from "lucide-react-native";
 import useAuth from "../../../context/auth/useAuth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -20,18 +13,21 @@ export default function Login() {
   const { login, error, clearErrors } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const handleLogin = async () => {
     clearErrors();
+    setIsLoading(true);
     await login(email, password);
+    setIsLoading(false);
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <>
+      {!isLoading ? (<SafeAreaView style={{ flex: 1 }} edges={["left", "right", "bottom"]}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+
       <View style={loginStyle.container}>
         <View style={loginStyle.content}>
           <Image
@@ -43,10 +39,10 @@ export default function Login() {
 
           <View style={loginStyle.inputContainer}>
             <Text style={loginStyle.welcomeBackText}>Welcome back!</Text>
-            {error && <Text style={{ color: "red" }}>{error}</Text>}
+            {error.loginError && <Text style={{ color: "red" }}>{error.loginError}</Text>}
             <View style={loginStyle.group}>
               <Text style={loginStyle.groupText}>
-                Email <Text style={{ color: "red" }}>*</Text>
+                Email
               </Text>
 
               <View style={loginStyle.iconContainer}>
@@ -65,7 +61,7 @@ export default function Login() {
 
             <View style={loginStyle.group}>
               <Text style={loginStyle.groupText}>
-                Password <Text style={{ color: "red" }}>*</Text>{" "}
+                Password
               </Text>
 
               <View style={loginStyle.iconContainer}>
@@ -90,7 +86,7 @@ export default function Login() {
             ></Button>
 
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <Text>
+              <Text style={{fontWeight:'bold'}}>
                 Don't have an account?{" "}
                 <Text style={loginStyle.dontHaveAccount}>Register here.</Text>
               </Text>
@@ -99,5 +95,8 @@ export default function Login() {
         </View>
       </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>) : (<ActivityIndicator size="large" color="#5458b5" style={{ flex: 1, justifyContent: "center", alignItems: "center" }} />)}
+    </>
+    
   );
 }

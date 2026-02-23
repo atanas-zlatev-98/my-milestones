@@ -43,8 +43,9 @@ export const loginStyle = StyleSheet.create({
         gap:5
   },
   groupText:{
-    fontSize:16,
-    paddingLeft:0
+     fontSize: 20,
+     marginBottom: 5,
+     fontWeight: "bold",
   },
   iconContainer:{
     flexDirection:'row',
