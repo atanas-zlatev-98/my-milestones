@@ -76,6 +76,7 @@ export default function Register() {
               <ImagePicker
                 onImagePicked={setImageUri}
                 imageUri={imageUri}
+                placeholderText='Select a profile picture'
               ></ImagePicker>
 
               {error.registerError && <Text style={{ color: "red", fontWeight:'bold' }}>{error.registerError}</Text>}

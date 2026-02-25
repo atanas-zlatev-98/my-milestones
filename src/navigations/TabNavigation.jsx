@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ActiveMilestones from "../screens/ActiveMilestonesScreen";
 import Profile from "../screens/profile/ProfileScreen";
-import CreateProject from "../screens/projects/CreateProject";
+import CreateProject from "../screens/projects/create-project/CreateProject";
 import { Home, User,CirclePlus } from "lucide-react-native";
 
 export default function TabNavigator() {
@@ -36,7 +36,7 @@ export default function TabNavigator() {
       })}
     >
       <Tabs.Screen name="ActiveMilestones" component={ActiveMilestones} options={{title:'Milestones'}}></Tabs.Screen>
-      <Tabs.Screen name="CreateProject" component={CreateProject} options={{title:'Create Project'}}></Tabs.Screen>
+      <Tabs.Screen name="CreateProject" component={CreateProject} options={{headerTitle:"",headerShown:true,headerStyle:{backgroundColor:'#FFF'},headerShadowVisible: false}}></Tabs.Screen>
       <Tabs.Screen name="MyProfile" component={Profile} options={{title:'My Profile'}}></Tabs.Screen>
     </Tabs.Navigator>
   );

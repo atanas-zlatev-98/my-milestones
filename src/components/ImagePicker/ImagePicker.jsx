@@ -3,7 +3,7 @@ import { launchImageLibraryAsync, requestMediaLibraryPermissionsAsync} from "exp
 import { styles } from "./ImagePicker.style";
 import { ImagePlus, RotateCw } from "lucide-react-native";
 
-export default function ImagePicker({ imageUri, onImagePicked }) {
+export default function ImagePicker({ imageUri, onImagePicked, placeholderText }) {
 
   const requestPermission = async () => {
 
@@ -39,7 +39,7 @@ export default function ImagePicker({ imageUri, onImagePicked }) {
         ) : (
           <View style={styles.placeholder}>
             <ImagePlus size={48} color="#5458b5" />
-            <Text style={styles.placeholderText}>Select a profile picture</Text>
+            <Text style={styles.placeholderText}>{placeholderText}</Text>
           </View>
         )}
       </TouchableOpacity>
