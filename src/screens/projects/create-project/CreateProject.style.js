@@ -18,14 +18,39 @@ export const createProjectStyle = StyleSheet.create({
       fontWeight: "bold",
     },
   },
-   content: {
+  iconImage: {
+    marginTop: 30,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+  },
+  iconImageContainer: {
+    width: 200,
+    height: 200,
+    borderWidth: 1,
+    borderColor: "transparent",
+    borderRadius: 100,
+    overflow: "hidden",
+  },
+  backgroundImageContainer: {
+    width: "100%",
+    height: 150,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "transparent",
+  },
+  content: {
     gap: 5,
   },
-  groups:{
-    flexDirection:'column',
-    gap:15
+  groups: {
+    flexDirection: "column",
+    gap: 15,
   },
-   group: {
+  group: {
     label: {
       fontSize: 20,
       marginBottom: 8,

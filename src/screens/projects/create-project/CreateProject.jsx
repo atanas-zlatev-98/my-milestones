@@ -12,13 +12,12 @@ import { createProjectStyle } from "./CreateProject.style";
 import ImagePicker from "../../../components/ImagePicker/ImagePicker";
 import Button from "../../../components/Button";
 import TasksItem from "./TasksItem";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 
 export default function CreateProject() {
-  
   const [backgroundImageUri, setBackgroundImageUri] = useState(null);
   const [iconImageUri, setIconImageUri] = useState(null);
-  
+
   const [projectName, setProjectName] = useState("");
   const [projectField, setProjectField] = useState("");
 
@@ -43,16 +42,15 @@ export default function CreateProject() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["left", "right",]}>
+    <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-       
       >
         <ScrollView
           contentContainerStyle={createProjectStyle.scrollViewContent}
         >
-          <View>
+          <View style={{marginBottom:20}}>
             <Text style={createProjectStyle.topText.projects}>Projects</Text>
             <Text style={createProjectStyle.topText.createProject}>
               Create Project
@@ -60,12 +58,17 @@ export default function CreateProject() {
           </View>
 
           <View style={createProjectStyle.content}>
-            <View style={{ marginTop: 30, marginBottom: 10 }}>
+            <View style={createProjectStyle.group}>
+              <Text style={createProjectStyle.group.label}>Select Icon</Text>
               <ImagePicker
                 onImagePicked={setIconImageUri}
                 imageUri={iconImageUri}
                 placeholderText="Select Icon"
               ></ImagePicker>
+            </View>
+
+            <View style={createProjectStyle.group}>
+              <Text style={createProjectStyle.group.label}>Select Background</Text>
               <ImagePicker
                 onImagePicked={setBackgroundImageUri}
                 imageUri={backgroundImageUri}
@@ -100,10 +103,16 @@ export default function CreateProject() {
             <View style={createProjectStyle.group}>
               <Text style={createProjectStyle.group.label}>Project Tasks</Text>
 
-              <View style={{flexDirection: "column",alignItems: "flex-start",gap: 8}}>
-
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                  
+              <View
+                style={{
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: 8,
+                }}
+              >
+                <View
+                  style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+                >
                   <TextInput
                     style={createProjectStyle.inputField}
                     placeholder="Enter your projects tasks..."
@@ -113,11 +122,11 @@ export default function CreateProject() {
 
                   <View style={{ width: "15%" }}>
                     <Button
-                    title={"+"}
-                    style={createProjectStyle}
-                    onPress={handleProjectTasks}/>
+                      title={"+"}
+                      style={createProjectStyle}
+                      onPress={handleProjectTasks}
+                    />
                   </View>
-                 
                 </View>
 
                 <View style={{ flexDirection: "row", gap: 5 }}>
@@ -130,12 +139,11 @@ export default function CreateProject() {
                   ))}
                 </View>
 
-                 <Button
-                    title={"Create Project"}
-                    style={createProjectStyle}
-                    onPress={handleProjectTasks}
-                  ></Button>
-
+                <Button
+                  title={"Create Project"}
+                  style={createProjectStyle}
+                  onPress={handleProjectTasks}
+                ></Button>
               </View>
             </View>
           </View>
