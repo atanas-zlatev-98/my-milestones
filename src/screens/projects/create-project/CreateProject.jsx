@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { View, Text,KeyboardAvoidingView,Platform,ScrollView,TextInput} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createProjectStyle } from "./CreateProject.style";
 import ImagePicker from "../../../components/ImagePicker/ImagePicker";
@@ -15,6 +8,7 @@ import TasksItem from "./TasksItem";
 import uuid from "react-native-uuid";
 
 export default function CreateProject() {
+
   const [backgroundImageUri, setBackgroundImageUri] = useState(null);
   const [iconImageUri, setIconImageUri] = useState(null);
 
@@ -41,15 +35,24 @@ export default function CreateProject() {
     setProjectTasks(projectTasks.filter((task) => task.id !== taskId));
   };
 
+  const handleCreateProject = () => {
+    const newProject = {
+        title: projectName,
+        field: projectField,
+        icon: iconImageUri,
+        backgroundImage: backgroundImageUri,
+        tasks: projectTasks,
+    };
+    console.log(newProject);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
-        <ScrollView
-          contentContainerStyle={createProjectStyle.scrollViewContent}
-        >
+
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+        
+        <ScrollView contentContainerStyle={createProjectStyle.scrollViewContent}>
+
           <View style={{marginBottom:20}}>
             <Text style={createProjectStyle.topText.projects}>Projects</Text>
             <Text style={createProjectStyle.topText.createProject}>
@@ -85,6 +88,8 @@ export default function CreateProject() {
                 <TextInput
                   style={createProjectStyle.inputField}
                   placeholder="Enter your projects name..."
+                  onChangeText={setProjectName}
+                  value={projectName}
                 />
               </View>
             </View>
@@ -96,6 +101,8 @@ export default function CreateProject() {
                 <TextInput
                   style={createProjectStyle.inputField}
                   placeholder="Field: Web, Mobile, etc..."
+                  onChangeText={setProjectField}
+                  value={projectField}
                 />
               </View>
             </View>
@@ -117,6 +124,7 @@ export default function CreateProject() {
                     style={createProjectStyle.inputField}
                     placeholder="Enter your projects tasks..."
                     onChangeText={setProjectTaskName}
+                    onSubmitEditing={handleProjectTasks}
                     value={projectTaskName}
                   />
 
@@ -142,7 +150,7 @@ export default function CreateProject() {
                 <Button
                   title={"Create Project"}
                   style={createProjectStyle}
-                  onPress={handleProjectTasks}
+                  onPress={handleCreateProject}
                 ></Button>
               </View>
             </View>
