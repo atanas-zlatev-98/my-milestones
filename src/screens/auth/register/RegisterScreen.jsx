@@ -10,6 +10,7 @@ import { uploadImageToCloudinary } from "../../../services/cloudinary/uploadImag
 import { registerSchema } from "../../../validation/validationSchemas.js";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { SafeAreaView } from "react-native-safe-area-context";
+import checkValidation from "../../../validation/checkValidation.js";
 
 export default function Register() {
 
@@ -24,23 +25,19 @@ export default function Register() {
   const {register,error} = useAuth();
 
   const handleRegister = async () => {
+
     setErrors({});
-    const result = registerSchema.safeParse({
+
+    const validation = checkValidation(registerSchema,{
       imageUri,
       name,
       email,
       password,
       confirmPassword,
-    });
-    
-    if (!result.success) {
-      const formattedErrors = {};
-      
-      result.error.issues.forEach((err) => {
-        formattedErrors[err.path[0]] = err.message;
-      });
-      
-      setErrors(formattedErrors);
+    })
+
+    if(!validation.success){
+      setErrors(validation.errors);
       return;
     }
 

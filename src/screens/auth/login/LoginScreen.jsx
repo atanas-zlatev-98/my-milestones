@@ -7,6 +7,7 @@ import { KeyRound, Mail } from "lucide-react-native";
 import useAuth from "../../../context/auth/useAuth";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loginSchema } from "../../../validation/validationSchemas";
+import checkValidation from "../../../validation/checkValidation";
 
 export default function Login() {
 
@@ -26,19 +27,12 @@ export default function Login() {
     clearErrors();
     setValidationErrors({});
     
-    const validation = loginSchema.safeParse({email,password});
+    const validation = checkValidation(loginSchema, {email, password});
     
     if(!validation.success){
-      
-      const formattedErrors= {};
-      
-      validation.error.issues.forEach((err) => {
-        formattedErrors[err.path[0]] = err.message;
-      });
-
-      setValidationErrors(formattedErrors);
+      setValidationErrors(validation.errors);
       return;
-    };
+    }
     
     setIsLoading(true);
     await login(email, password);

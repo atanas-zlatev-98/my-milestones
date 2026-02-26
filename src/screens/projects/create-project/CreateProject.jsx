@@ -7,6 +7,7 @@ import Button from "../../../components/Button";
 import TasksItem from "./TasksItem";
 import uuid from "react-native-uuid";
 import { createProjectSchema } from "../../../validation/validationSchemas";
+import checkValidation from "../../../validation/checkValidation";
 
 export default function CreateProject() {
 
@@ -40,23 +41,18 @@ export default function CreateProject() {
 
   const handleCreateProject = () => {
 
-     setErrors({});
-      const result = createProjectSchema.safeParse({
+      setErrors({});
+      
+      const validation = checkValidation(createProjectSchema, {
         iconImageUri,
         backgroundImageUri,
         projectName,
         projectField,
         projectTasks,
       });
-      
-      if (!result.success) {
-        const formattedErrors = {};
-        
-        result.error.issues.forEach((err) => {
-          formattedErrors[err.path[0]] = err.message;
-        });
-        console.log(formattedErrors);
-        setErrors(formattedErrors);
+
+      if(!validation.success){
+        setErrors(validation.errors);
         return;
       }
 
