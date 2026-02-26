@@ -28,7 +28,7 @@ export const registerStyle = StyleSheet.create({
   group: {
     label: {
       fontSize: 20,
-      marginBottom: 8,
+      marginBottom: 2,
       fontWeight: "bold",
     },
   },

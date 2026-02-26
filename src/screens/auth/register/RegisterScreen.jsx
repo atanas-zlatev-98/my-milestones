@@ -72,24 +72,29 @@ export default function Register() {
 
           <View style={[registerStyle.content]}>
             <View style={{ marginTop: 30, marginBottom: 10 }}>
-              {errors.imageUri && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.imageUri}</Text>)}
+              {error.registerError && <Text style={{ color: "red", fontWeight:'bold',marginBottom:6 }}>{error.registerError}</Text>}
               <ImagePicker
                 onImagePicked={setImageUri}
                 imageUri={imageUri}
                 placeholderText='Select a profile picture'
               ></ImagePicker>
-
-              {error.registerError && <Text style={{ color: "red", fontWeight:'bold' }}>{error.registerError}</Text>}
+              {errors.imageUri && (
+                  <Text style={{ color: "red", fontSize: 12,marginTop:4,fontWeight:'bold' }}>
+                    {errors.imageUri}
+                  </Text>
+                )}
+              
             </View>
 
             <View style={registerStyle.groups}>
               <View style={registerStyle.group}>
-                <Text style={registerStyle.group.label}>Name {errors.name && (
-                  <Text style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+                <Text style={registerStyle.group.label}>Name</Text>
+                {errors.name && (
+                  <Text style={{ color: "red", fontSize: 12,fontWeight:'bold',marginBottom:4 }}>
                     {errors.name}
                   </Text>
                   
-                )}</Text>
+                )}
 
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
                   <View style={registerStyle.iconContainer}>
@@ -108,13 +113,12 @@ export default function Register() {
               </View>
 
               <View style={registerStyle.group}>
-                <Text style={registerStyle.group.label}>Email {errors.email && (
-                  <Text style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+                <Text style={registerStyle.group.label}>Email </Text>
+                  {errors.email && (
+                  <Text style={{ color: "red", fontSize: 12,marginBottom:4,fontWeight:'bold' }}>
                     {errors.email}
                   </Text>
                 )}
-                </Text>
-
                 <View style={registerStyle.iconContainer}>
                   <View style={registerStyle.icon}>
                     <AtSign size={24} color={"#5458b5"} />
@@ -130,12 +134,12 @@ export default function Register() {
               </View>
 
               <View style={registerStyle.group}>
-                <Text style={registerStyle.group.label}>Password  {errors.password && (
-                  <Text style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+                <Text style={registerStyle.group.label}>Password</Text>
+                  {errors.password && (
+                  <Text style={{ color: "red", fontSize: 12, marginBottom: 4, fontWeight:'bold' }}>
                     {errors.password}
                   </Text>
-                )}</Text>
-
+                )}
                 <View style={registerStyle.iconContainer}>
                   <View style={registerStyle.icon}>
                     <KeyRound size={24} color={"#5458b5"} />
@@ -152,11 +156,12 @@ export default function Register() {
               </View>
 
               <View style={registerStyle.group}>
-                <Text style={registerStyle.group.label}>Confirm Password  {errors.confirmPassword && (
-                  <Text style={{ color: "red", fontSize: 12, marginTop: 4 }}>
+                <Text style={registerStyle.group.label}>Confirm Password </Text>
+                {errors.confirmPassword && (
+                  <Text style={{ color: "red", fontSize: 12, marginBottom: 4, fontWeight:'bold' }}>
                     {errors.confirmPassword}
                   </Text>
-                )}</Text>
+                )}
                 <View style={registerStyle.iconContainer}>
                   <View style={registerStyle.icon}>
                     <RotateCcwKey size={24} color={"#5458b5"} />

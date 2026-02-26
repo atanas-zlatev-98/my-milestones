@@ -86,40 +86,42 @@ export default function CreateProject() {
 
           <View style={createProjectStyle.content}>
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Select Icon {errors.iconImageUri && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.iconImageUri}</Text>)}</Text>
+              <Text style={createProjectStyle.group.label}>Select Icon</Text>
               <ImagePicker
                 onImagePicked={setIconImageUri}
                 imageUri={iconImageUri}
                 placeholderText="Select Icon"
-              ></ImagePicker>
+                ></ImagePicker>
+                {errors.iconImageUri && (<Text style={{ color: "red", fontSize: 12, marginTop: 4,fontWeight:'bold' }}>{errors.iconImageUri}</Text>)}
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Select Background {errors.backgroundImageUri && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.backgroundImageUri}</Text>)}</Text>
+              <Text style={createProjectStyle.group.label}>Select Background</Text>
               <ImagePicker
                 onImagePicked={setBackgroundImageUri}
                 imageUri={backgroundImageUri}
                 placeholderText="Select Background Image"
-              ></ImagePicker>
+                ></ImagePicker>
+                {errors.backgroundImageUri && (<Text style={{ color: "red", fontSize: 12, marginTop: 4,fontWeight:'bold' }}>{errors.backgroundImageUri}</Text>)}
             </View>
           </View>
 
           <View style={createProjectStyle.groups}>
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Name {errors.projectName && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectName}</Text>)}</Text>
-
-              <View>
+              <Text style={createProjectStyle.group.label}>Project Name</Text>
+        
                 <TextInput
                   style={createProjectStyle.inputField}
                   placeholder="Enter your projects name..."
                   onChangeText={setProjectName}
                   value={projectName}
-                />
-              </View>
+                  />
+         
+                  {errors.projectName && (<Text style={{ color: "red", fontSize: 12, marginTop: 4,fontWeight:'bold' }}>{errors.projectName}</Text>)}
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Field {errors.projectField && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectField}</Text>)}</Text>
+              <Text style={createProjectStyle.group.label}>Project Field</Text>
 
               <View>
                 <TextInput
@@ -129,10 +131,11 @@ export default function CreateProject() {
                   value={projectField}
                 />
               </View>
+              {errors.projectField && (<Text style={{ color: "red", fontSize: 12, marginTop: 4,fontWeight:'bold' }}>{errors.projectField}</Text>)}
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Tasks {errors.projectTasks && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectTasks}</Text>)}</Text>
+              <Text style={createProjectStyle.group.label}>Project Tasks</Text>
 
               <View
                 style={{
@@ -160,6 +163,8 @@ export default function CreateProject() {
                     />
                   </View>
                 </View>
+
+                {errors.projectTasks && (<Text style={{ color: "red", fontSize: 12,fontWeight:'bold' }}>{errors.projectTasks}</Text>)}
 
                 <View style={{ flexDirection: "row", gap: 5 }}>
                   {projectTasks.map((task) => (

@@ -44,9 +44,10 @@ export const createProjectStyle = StyleSheet.create({
     borderColor: "transparent",
   },
   content: {
-    gap: 5,
+    gap: 8,
   },
   groups: {
+    marginTop: 20,
     flexDirection: "column",
     gap: 15,
   },
