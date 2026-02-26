@@ -16,7 +16,7 @@ export default function ProjectsProvider({ children }) {
   useEffect(() => {
 
     if (!user?.id) return;
-    
+
     const fetchProjects = async () => {
       try {
         const projectsData = await getAllProjects(user.id);
@@ -29,6 +29,7 @@ export default function ProjectsProvider({ children }) {
   }, [user?.id]);
 
   const createNewProjects = async(userId,projectData) =>{
+    
     try{
         const newProject = await createProject(userId,projectData);
         setProjects((prevProjects) => [...prevProjects, newProject]);
