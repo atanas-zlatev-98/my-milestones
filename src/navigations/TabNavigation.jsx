@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ActiveMilestones from "../screens/ActiveMilestonesScreen";
+import ActiveMilestones from "../screens/active-projects/ActiveMilestonesScreen";
 import Profile from "../screens/profile/ProfileScreen";
 import CreateProject from "../screens/projects/create-project/CreateProject";
 import { Home, User,CirclePlus } from "lucide-react-native";
