@@ -2,16 +2,16 @@ import { useState } from "react";
 import { View, Text, KeyboardAvoidingView, Platform, ScrollView, TextInput, ActivityIndicator} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createProjectStyle } from "./CreateProject.style";
+import { createProjectSchema } from "../../../validation/validationSchemas";
+import { uploadImageToCloudinary } from "../../../services/cloudinary/uploadImageToCloudinary";
+import { useNavigation } from "@react-navigation/native";
 import ImagePicker from "../../../components/ImagePicker/ImagePicker";
 import Button from "../../../components/Button";
 import TasksItem from "./TasksItem";
-import uuid from "react-native-uuid";
-import { createProjectSchema } from "../../../validation/validationSchemas";
 import checkValidation from "../../../validation/checkValidation";
+import uuid from "react-native-uuid";
 import useAuth from "../../../context/auth/useAuth";
-import { createProject } from "../../../services/projectService";
-import { uploadImageToCloudinary } from "../../../services/cloudinary/uploadImageToCloudinary";
-import { useNavigation } from "@react-navigation/native";
+import useProjects from "../../../context/projects/useProjects";
 
 export default function CreateProject() {
   const { user } = useAuth();
@@ -29,6 +29,7 @@ export default function CreateProject() {
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
+  const {createNewProjects} = useProjects();
 
   const handleProjectTasks = () => {
 
@@ -39,7 +40,7 @@ export default function CreateProject() {
       completedOn: null,
     };
 
-    setProjectTasks([...projectTasks, newTask]);
+    setProjectTasks((prevTasks) => [...prevTasks, newTask]);
     setProjectTaskName("");
   };
 
@@ -48,6 +49,7 @@ export default function CreateProject() {
   };
 
   const handleCreateProject = async () => {
+
     setErrors({});
 
     const validation = checkValidation(createProjectSchema, {
@@ -73,7 +75,8 @@ export default function CreateProject() {
       tasks: projectTasks,
     };
 
-    const result = await createProject(user.id, newProject);
+    await createNewProjects(user.id, newProject);
+
     setLoading(false);
     setIconImageUri(null);
     setBackgroundImageUri(null);

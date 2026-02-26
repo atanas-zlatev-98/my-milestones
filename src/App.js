@@ -2,6 +2,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import RootNavigator from "./navigations/RootNavigation";
 import AuthProvider from "./context/auth/AuthProvider";
+import ProjectsProvider from "./context/projects/ProjectsProvider";
 
 export default function App() {
   return (
@@ -13,7 +14,9 @@ export default function App() {
     >
       <StatusBar style="auto"></StatusBar>
       <AuthProvider>
-        <RootNavigator></RootNavigator>
+        <ProjectsProvider>
+          <RootNavigator></RootNavigator>
+        </ProjectsProvider>
       </AuthProvider>
     </NavigationContainer>
   );
