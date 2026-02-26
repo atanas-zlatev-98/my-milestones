@@ -6,6 +6,7 @@ import ImagePicker from "../../../components/ImagePicker/ImagePicker";
 import Button from "../../../components/Button";
 import TasksItem from "./TasksItem";
 import uuid from "react-native-uuid";
+import { createProjectSchema } from "../../../validation/validationSchemas";
 
 export default function CreateProject() {
 
@@ -17,6 +18,8 @@ export default function CreateProject() {
 
   const [projectTaskName, setProjectTaskName] = useState("");
   const [projectTasks, setProjectTasks] = useState([]);
+
+  const [errors, setErrors] = useState({});
 
   const handleProjectTasks = () => {
     const newTask = {
@@ -36,6 +39,27 @@ export default function CreateProject() {
   };
 
   const handleCreateProject = () => {
+
+     setErrors({});
+      const result = createProjectSchema.safeParse({
+        iconImageUri,
+        backgroundImageUri,
+        projectName,
+        projectField,
+        projectTasks,
+      });
+      
+      if (!result.success) {
+        const formattedErrors = {};
+        
+        result.error.issues.forEach((err) => {
+          formattedErrors[err.path[0]] = err.message;
+        });
+        console.log(formattedErrors);
+        setErrors(formattedErrors);
+        return;
+      }
+
     const newProject = {
         title: projectName,
         field: projectField,
@@ -62,7 +86,7 @@ export default function CreateProject() {
 
           <View style={createProjectStyle.content}>
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Select Icon</Text>
+              <Text style={createProjectStyle.group.label}>Select Icon {errors.iconImageUri && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.iconImageUri}</Text>)}</Text>
               <ImagePicker
                 onImagePicked={setIconImageUri}
                 imageUri={iconImageUri}
@@ -71,7 +95,7 @@ export default function CreateProject() {
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Select Background</Text>
+              <Text style={createProjectStyle.group.label}>Select Background {errors.backgroundImageUri && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.backgroundImageUri}</Text>)}</Text>
               <ImagePicker
                 onImagePicked={setBackgroundImageUri}
                 imageUri={backgroundImageUri}
@@ -82,7 +106,7 @@ export default function CreateProject() {
 
           <View style={createProjectStyle.groups}>
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Name</Text>
+              <Text style={createProjectStyle.group.label}>Project Name {errors.projectName && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectName}</Text>)}</Text>
 
               <View>
                 <TextInput
@@ -95,7 +119,7 @@ export default function CreateProject() {
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Field</Text>
+              <Text style={createProjectStyle.group.label}>Project Field {errors.projectField && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectField}</Text>)}</Text>
 
               <View>
                 <TextInput
@@ -108,7 +132,7 @@ export default function CreateProject() {
             </View>
 
             <View style={createProjectStyle.group}>
-              <Text style={createProjectStyle.group.label}>Project Tasks</Text>
+              <Text style={createProjectStyle.group.label}>Project Tasks {errors.projectTasks && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{errors.projectTasks}</Text>)}</Text>
 
               <View
                 style={{

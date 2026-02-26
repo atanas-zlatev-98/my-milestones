@@ -15,4 +15,12 @@ export const registerSchema = z.object({
 export const loginSchema = z.object({
   email: z.string().min(1,"Email is required"),
   password: z.string().min(1,"Password is required")
+});
+
+export const createProjectSchema = z.object({
+  backgroundImageUri: z.string().nullable().refine(val => val !== null, {message: "Please select a background image"}),
+  iconImageUri: z.string().nullable().refine(val => val !== null, {message: "Please select an icon image"}),
+  projectName: z.string().min(1, "Project name is required").min(3, "Project name must be at least 3 characters").max(30,'Project name must not exceed 30 characters'),
+  projectField: z.string().min(1, "Project field is required").min(3, "Project field must be at least 3 characters").max(30,'Project field must not exceed 30 characters'),
+  projectTasks: z.array(z.object()).nonempty("Project tasks cannot be empty").min(3, "Project must have at least 3 tasks")
 })
