@@ -1,26 +1,28 @@
+import { useNavigation } from "@react-navigation/native";
 import {View, Text, TouchableOpacity, ImageBackground, Image, StyleSheet} from "react-native";
 
-export default function ActiveMilestonesItem({ backgroundImage,icon, field, title,tasks=[]}) {
+export default function ActiveMilestonesItem({...project}) {
 
-const completedTasks = tasks.filter(task=>task.completed).length;
+const completedTasks = project.tasks.filter(task=>task.completed).length;
+const navigation = useNavigation();
 
   return (
-    <TouchableOpacity>
-      <ImageBackground source={{ uri: backgroundImage }} resizeMode="cover"style={styles.bgImage}>
+    <TouchableOpacity onPress={()=>navigation.navigate('ProjectDetails',{...project})}>
+      <ImageBackground source={{ uri: project.backgroundImage }} resizeMode="cover" style={styles.bgImage}>
         
         <View style={styles.container}>
 
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={{ uri: icon }} style={{ width: 80, height: 80, borderRadius: 5 }}></Image>
+            <Image source={{ uri: project.icon }} style={{ width: 80, height: 80, borderRadius: 5 }}></Image>
             
             <View style={{ flexDirection: "column",gap: 5,justifyContent: "flex-start"}}>
-              <Text style={styles.fieldText}>{field}</Text>
-              <Text style={styles.titleText}>{title}</Text>
+              <Text style={styles.fieldText}>{project.field}</Text>
+              <Text style={styles.titleText}>{project.title}</Text>
             </View>
 
           </View>
            <View style={styles.completedTasks}>
-            <Text style={{  color: "#5458b5"}}>Completed {completedTasks} / {tasks.length}</Text>
+            <Text style={{  color: "#5458b5"}}>Completed {completedTasks} / {project.tasks.length}</Text>
           </View>
         </View>
       </ImageBackground>
