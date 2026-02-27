@@ -32,6 +32,7 @@ export default function ProjectsProvider({ children }) {
     
     try{
         const newProject = await createProject(userId,projectData);
+        console.log("Created project:", newProject);
         setProjects((prevProjects) => [...prevProjects, newProject]);
     }catch(err){
         setErrors(`Failed to create project: ${err}`);

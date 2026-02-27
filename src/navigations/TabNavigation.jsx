@@ -3,6 +3,7 @@ import ActiveMilestones from "../screens/active-projects/ActiveMilestonesScreen"
 import Profile from "../screens/profile/ProfileScreen";
 import CreateProject from "../screens/projects/create-project/CreateProject";
 import { Home, User,CirclePlus } from "lucide-react-native";
+import MilestonesNavigation from "./MilestonesNavigation";
 
 export default function TabNavigator() {
   const Tabs = createBottomTabNavigator();
@@ -12,7 +13,7 @@ export default function TabNavigator() {
         screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ color, size, focused }) => {
-          if (route.name === "ActiveMilestones") {
+          if (route.name === "Milestones") {
             return (
               <Home color={color} size={size} strokeWidth={focused ? 2.5 : 2} />
             );
@@ -35,7 +36,7 @@ export default function TabNavigator() {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tabs.Screen name="ActiveMilestones" component={ActiveMilestones} options={{title:'Milestones'}}></Tabs.Screen>
+      <Tabs.Screen name="Milestones" component={MilestonesNavigation}></Tabs.Screen>
       <Tabs.Screen name="CreateProject" component={CreateProject} options={{headerTitle:"",headerShown:true,headerStyle:{backgroundColor:'#FFF'},headerShadowVisible: false}}></Tabs.Screen>
       <Tabs.Screen name="MyProfile" component={Profile} options={{title:'My Profile'}}></Tabs.Screen>
     </Tabs.Navigator>

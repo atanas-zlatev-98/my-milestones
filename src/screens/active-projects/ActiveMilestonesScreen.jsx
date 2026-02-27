@@ -7,6 +7,7 @@ import ActiveMilestonesItem from "./ActiveMilestonesItem";
 export default function ActiveMilestones() {
 
   const {projects} = useProjects();
+
   return (
     <SafeAreaView>
       <View style={activeMilestonesStyle.header}>
@@ -16,7 +17,7 @@ export default function ActiveMilestones() {
       </View>
       {/* <Text>Active MileStones {projects.length}</Text> */}
       <View style={{padding:10}}>
-          <FlatList data={projects} renderItem={({item})=><ActiveMilestonesItem {...item}/>} keyExtractor={item=>item?.id}/>
+          <FlatList data={projects} renderItem={({item})=><ActiveMilestonesItem {...item}/>} keyExtractor={item=>item?.id} contentContainerStyle={{paddingBottom: 50}}/>
       </View>
     </SafeAreaView>
   );

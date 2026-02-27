@@ -83,7 +83,7 @@ export default function CreateProject() {
     setProjectName("");
     setProjectField("");
     setProjectTasks([]);
-    navigation.navigate("ActiveMilestones");
+    navigation.navigate("Milestones", { screen: "ActiveMilestones" });
   };
 
   return (

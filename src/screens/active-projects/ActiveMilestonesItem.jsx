@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, ImageBackground, Image, StyleSheet} from "react-native";
 
-export default function ActiveMilestonesItem({ backgroundImage,icon, field, title,tasks}) {
+export default function ActiveMilestonesItem({ backgroundImage,icon, field, title,tasks=[]}) {
 
 const completedTasks = tasks.filter(task=>task.completed).length;
 

@@ -15,6 +15,13 @@ export const createProject = async (userId, projectData) => {
     projects: arrayUnion(projectRef.id),
   });
 
+   return {
+    id: projectRef.id,
+    ...projectData,
+    createdBy: userId,
+    createdAt: Timestamp.now(),
+  };
+
 };
 
 export const getAllProjects = async (userId) => {
