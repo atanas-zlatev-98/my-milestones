@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView, TextInput, ActivityIndicator} from "react-native";
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createProjectStyle } from "./CreateProject.style";
 import { createProjectSchema } from "../../../validation/validationSchemas";
@@ -12,6 +20,7 @@ import checkValidation from "../../../validation/checkValidation";
 import uuid from "react-native-uuid";
 import useAuth from "../../../context/auth/useAuth";
 import useProjects from "../../../context/projects/useProjects";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function CreateProject() {
   const { user } = useAuth();
@@ -28,11 +37,13 @@ export default function CreateProject() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const [deadline, setDeadline] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
   const navigation = useNavigation();
-  const {createNewProjects} = useProjects();
+  const { createNewProjects } = useProjects();
 
   const handleProjectTasks = () => {
-
     const newTask = {
       id: uuid.v4(),
       title: projectTaskName,
@@ -48,8 +59,18 @@ export default function CreateProject() {
     setProjectTasks(projectTasks.filter((task) => task.id !== taskId));
   };
 
-  const handleCreateProject = async () => {
+  const handleDeadlineChange = (event, selectedDate) => {
+    if (Platform.OS === "android") {
+      setShowDatePicker(false);
+    }
 
+    if (event?.type === "set" && selectedDate) {
+      setDeadline(selectedDate);
+    }
+    console.log(deadline);
+  };
+
+  const handleCreateProject = async () => {
     setErrors({});
 
     const validation = checkValidation(createProjectSchema, {
@@ -57,6 +78,7 @@ export default function CreateProject() {
       backgroundImageUri,
       projectName,
       projectField,
+      deadline,
       projectTasks,
     });
 
@@ -72,6 +94,7 @@ export default function CreateProject() {
       field: projectField,
       icon: await uploadImageToCloudinary(iconImageUri),
       backgroundImage: await uploadImageToCloudinary(backgroundImageUri),
+      deadline: deadline ? deadline.toISOString() : null,
       tasks: projectTasks,
     };
 
@@ -83,6 +106,7 @@ export default function CreateProject() {
     setProjectName("");
     setProjectField("");
     setProjectTasks([]);
+    setDeadline(null);
     navigation.navigate("Milestones", { screen: "ActiveMilestones" });
   };
 
@@ -271,12 +295,70 @@ export default function CreateProject() {
                         />
                       ))}
                     </View>
+                  </View>
 
-                    <Button
-                      title={"Create Project"}
-                      style={createProjectStyle}
-                      onPress={handleCreateProject}
-                    ></Button>
+                  <View style={createProjectStyle.group}>
+                    <Text style={createProjectStyle.group.label}>
+                      Project Deadline
+                    </Text>
+
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                        gap: 8,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 8,
+                        }}
+                      >
+                        <TextInput
+                          style={createProjectStyle.inputField}
+                          placeholder="Select a deadline..."
+                          editable={false}
+                          value={deadline ? deadline.toLocaleDateString() : ""}
+                        />
+
+                        <View style={{ width: "15%" }}>
+                          <Button
+                            title="+"
+                            style={createProjectStyle}
+                            onPress={() => setShowDatePicker(true)}
+                          ></Button>
+                        </View>
+
+                        {showDatePicker && (
+                          <DateTimePicker
+                            value={deadline}
+                            mode="date"
+                            display="spinner"
+                            onChange={handleDeadlineChange}
+                          ></DateTimePicker>
+                        )}
+                      </View>
+
+                      {errors.deadline && (
+                        <Text
+                          style={{
+                            color: "red",
+                            fontSize: 12,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {errors.deadline}
+                        </Text>
+                      )}
+
+                      <Button
+                        title={"Create Project"}
+                        style={createProjectStyle}
+                        onPress={handleCreateProject}
+                      ></Button>
+                    </View>
                   </View>
                 </View>
               </View>

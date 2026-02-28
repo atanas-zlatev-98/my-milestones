@@ -26,13 +26,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-     "plugins": [
+    "plugins": [
       [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you choose an profile picture."
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ]
   }
 }

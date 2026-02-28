@@ -22,5 +22,6 @@ export const createProjectSchema = z.object({
   iconImageUri: z.string().nullable().refine(val => val !== null, {message: "Please select an icon image"}),
   projectName: z.string().min(1, "Project name is required").min(3, "Project name must be at least 3 characters").max(30,'Project name must not exceed 30 characters'),
   projectField: z.string().min(1, "Project field is required").min(3, "Project field must be at least 3 characters").max(30,'Project field must not exceed 30 characters'),
+  deadline: z.date({ required_error: "Project deadline is required" }).refine(date => date > new Date(), { message: "Deadline must be a future date" }),
   projectTasks: z.array(z.object()).nonempty("Project tasks cannot be empty").min(3, "Project must have at least 3 tasks")
 })
