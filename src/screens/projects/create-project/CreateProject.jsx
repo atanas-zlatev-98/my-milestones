@@ -67,7 +67,6 @@ export default function CreateProject() {
     if (event?.type === "set" && selectedDate) {
       setDeadline(selectedDate);
     }
-    console.log(deadline);
   };
 
   const handleCreateProject = async () => {
@@ -92,6 +91,7 @@ export default function CreateProject() {
     const newProject = {
       title: projectName,
       field: projectField,
+      completed: false,
       icon: await uploadImageToCloudinary(iconImageUri),
       backgroundImage: await uploadImageToCloudinary(backgroundImageUri),
       deadline: deadline ? deadline.toISOString() : null,

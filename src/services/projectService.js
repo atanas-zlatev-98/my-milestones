@@ -3,6 +3,7 @@ import {
   doc,
   updateDoc,
   getDocs,
+  getDoc,
   arrayUnion,
   collection,
   addDoc,
@@ -48,16 +49,39 @@ export const getAllProjects = async (userId) => {
   return projects;
 };
 
+export const getProjectById = async (id) => {
+    // console.log(id);
+    const projectRef = doc(db, 'projects', id);
+    const projectSnap = await getDoc(projectRef);
+
+    if(projectSnap.exists()) {
+        return { id: projectSnap.id, ...projectSnap.data() };
+    }
+
+    return null;
+}
+
 export const updateTaskItem = async (project, taskId) => {
+  const projectRef = doc(db, "projects", project.id);
+
+  const updatedTasks = project.tasks.map((task) =>
+    task.id === taskId
+      ? { ...task, completed: true, completedOn: new Date().toISOString() }
+      : task,
+  );
+
+  await updateDoc(projectRef, { tasks: updatedTasks });
+
+  return { ...project, tasks: updatedTasks };
+};
+
+export const completeProjects = async (project) => {
    const projectRef = doc(db, 'projects', project.id);
 
-    const updatedTasks = project.tasks.map(task => 
-        task.id === taskId 
-            ? { ...task, completed: true, completedOn: new Date().toISOString() } 
-            : task
-    );
+    await updateDoc(projectRef, {
+        completed: true,
+        completedOn: new Date().toISOString(),
+    });
 
-    await updateDoc(projectRef, { tasks: updatedTasks });
-
-    return { ...project, tasks: updatedTasks };
+    return { ...project, completed: true, completedOn: new Date().toISOString() };
 };

@@ -9,12 +9,12 @@ import useProjects from "../../../context/projects/useProjects";
 export default function ProjectDetails({route}) {
   
     const {id} = route.params;
-    const {projects} = useProjects();
+    const {projects,completeProject} = useProjects();
 
     const project = projects.find(project => project.id === id);
 
-    const completeProjectHandler = () => {
-      // TODO: Implement complete project functionality
+    const completeProjectHandler = async () => {
+      await completeProject(project.id);
     }
 
     return(
