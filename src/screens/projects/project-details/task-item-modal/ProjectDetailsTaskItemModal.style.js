@@ -41,4 +41,15 @@ export const projectDetailsTaskItemModalStyles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
+   btn: {
+    backgroundColor: "#5458b5",
+    width: "100%",
+    borderRadius: 5,
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10,
+  },
 });

@@ -4,12 +4,17 @@ import { projectDetailsStyle } from "./ProjectDetails.style";
 import { FlatList } from "react-native-gesture-handler";
 import ProjectDetailsTaskItem from "./task-item/ProjectDetailsTaskItem";
 import Button from "../../../components/Button";
+import useProjects from "../../../context/projects/useProjects";
 
 export default function ProjectDetails({route}) {
-    const project = route.params;
+  
+    const {id} = route.params;
+    const {projects} = useProjects();
+
+    const project = projects.find(project => project.id === id);
 
     const completeProjectHandler = () => {
-
+      // TODO: Implement complete project functionality
     }
 
     return(
@@ -35,7 +40,7 @@ export default function ProjectDetails({route}) {
                 <Text style={projectDetailsStyle.stats.statsText}>Deadline: {new Date(project.deadline).toLocaleDateString()}</Text>
             </View>
             <View style={projectDetailsStyle.tasks.container}>
-                <FlatList data={project.tasks} renderItem={({item,index})=><ProjectDetailsTaskItem {...item} isLast={index === project.tasks.length - 1} />} keyExtractor={item=>item.id}></FlatList>
+                <FlatList data={project.tasks} renderItem={({item,index})=><ProjectDetailsTaskItem {...item} projectId={project.id} isLast={index === project.tasks.length - 1} />} keyExtractor={item=>item.id}></FlatList>
             </View>
 
             <View style={projectDetailsStyle.btnContainer}>

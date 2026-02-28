@@ -7,7 +7,7 @@ const completedTasks = project.tasks.filter(task=>task.completed).length;
 const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={()=>navigation.navigate('ProjectDetails',{...project})}>
+    <TouchableOpacity onPress={()=>navigation.navigate('ProjectDetails',{id: project.id})}>
       <ImageBackground source={{ uri: project.backgroundImage }} resizeMode="cover" style={styles.bgImage}>
         
         <View style={styles.container}>

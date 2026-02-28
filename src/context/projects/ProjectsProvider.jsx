@@ -1,11 +1,12 @@
 import { createContext, useEffect } from "react";
-import { createProject, getAllProjects } from "../../services/projectService";
+import { createProject, getAllProjects,updateTaskItem } from "../../services/projectService";
 import { useState } from "react";
 import useAuth from "../auth/useAuth";
 
 export const ProjectsContext = createContext({
   projects: [],
   createNewProjects: () => {},
+  updateProjectTasks: () => {},
 });
 
 export default function ProjectsProvider({ children }) {
@@ -32,16 +33,29 @@ export default function ProjectsProvider({ children }) {
     
     try{
         const newProject = await createProject(userId,projectData);
-        console.log("Created project:", newProject);
         setProjects((prevProjects) => [...prevProjects, newProject]);
     }catch(err){
         setErrors(`Failed to create project: ${err}`);
     }
   }
 
+  const updateProjectTasks = async (projectId,taskId) => {
+    try{
+      const findProject = projects.find(project => project.id === projectId);
+      if(!findProject){
+        throw new Error('Project not found');
+      }
+      const updatedTasks = await updateTaskItem(findProject,taskId);
+      setProjects((prevProjects) => prevProjects.map((project) =>project.id === updatedTasks.id ? updatedTasks : project));
+    }catch(err){
+      setErrors(`Failed to update project tasks: ${err}`);
+    }
+  }
+
   const contextValue = {
     projects,
-    createNewProjects
+    createNewProjects,
+    updateProjectTasks
   };
 
   return (

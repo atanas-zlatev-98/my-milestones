@@ -1,8 +1,17 @@
 import { db } from "../config/firebaseConfig";
-import { doc, updateDoc,getDocs,arrayUnion,collection,addDoc,Timestamp,query,where} from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  getDocs,
+  arrayUnion,
+  collection,
+  addDoc,
+  Timestamp,
+  query,
+  where,
+} from "firebase/firestore";
 
 export const createProject = async (userId, projectData) => {
-
   const projectRef = await addDoc(collection(db, "projects"), {
     ...projectData,
     createdBy: userId,
@@ -15,17 +24,15 @@ export const createProject = async (userId, projectData) => {
     projects: arrayUnion(projectRef.id),
   });
 
-   return {
+  return {
     id: projectRef.id,
     ...projectData,
     createdBy: userId,
     createdAt: Timestamp.now(),
   };
-
 };
 
 export const getAllProjects = async (userId) => {
-
   const projectsQuery = query(
     collection(db, "projects"),
     where("createdBy", "==", userId),
@@ -39,4 +46,18 @@ export const getAllProjects = async (userId) => {
   }));
 
   return projects;
+};
+
+export const updateTaskItem = async (project, taskId) => {
+   const projectRef = doc(db, 'projects', project.id);
+
+    const updatedTasks = project.tasks.map(task => 
+        task.id === taskId 
+            ? { ...task, completed: true, completedOn: new Date().toISOString() } 
+            : task
+    );
+
+    await updateDoc(projectRef, { tasks: updatedTasks });
+
+    return { ...project, tasks: updatedTasks };
 };
