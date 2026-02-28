@@ -22,7 +22,8 @@ const navigation = useNavigation();
 
           </View>
            <View style={styles.completedTasks}>
-            <Text style={{  color: "#5458b5"}}>Completed {completedTasks} / {project.tasks.length}</Text>
+            <Text style={styles.tasks}>Completed {completedTasks} / {project.tasks.length}</Text>
+            <Text style={styles.tasks}>Deadline: {new Date(project.deadline).toLocaleDateString()}</Text>
           </View>
         </View>
       </ImageBackground>
@@ -54,10 +55,13 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 5,
+    fontWeight:"bold",
   },
   titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff" },
   completedTasks:{
-    alignSelf: "flex-start",
+    alignItems:'flex-end',
+    flexDirection:'column',
+    justifyContent:'space-between',
     paddingBottom:2,
     paddingTop:2,
     paddingLeft:5,
@@ -66,7 +70,17 @@ const styles = StyleSheet.create({
     color:'#5458b5',
     fontWeight:'bold',
     fontSize:12,
-    backgroundColor:'#ffffff'
-
+  },
+  tasks:{
+    alignSelf: "flex-end",
+    color:'#5458b5',
+    fontWeight:'bold',
+    fontSize:12,
+    paddingBottom:2,
+    paddingTop:2,
+    paddingLeft:5,
+    paddingRight:5,
+    borderRadius:5,
+    backgroundColor:'#ffffff',
   }
 });
