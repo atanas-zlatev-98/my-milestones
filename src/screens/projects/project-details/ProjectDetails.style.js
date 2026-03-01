@@ -42,6 +42,8 @@ export const projectDetailsStyle = StyleSheet.create({
       padding: 10,
       borderRadius: 10,
       alignItems: "flex-start",
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
     statsText: {
       color: "#ffffff",

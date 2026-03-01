@@ -1,4 +1,4 @@
-import { ImageBackground, Text, View,StatusBar, Image,ScrollView } from "react-native"
+import { ImageBackground, Text, View,StatusBar, Image,ScrollView, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { projectDetailsStyle } from "./ProjectDetails.style";
 import ProjectDetailsTaskItem from "./task-item/ProjectDetailsTaskItem";
@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function ProjectDetails({route}) {
   
     const {id} = route.params;
-    const {projects,completeProject} = useProjects();
+    const {projects,completeProject,deleteProject} = useProjects();
     const navigation = useNavigation();
 
     const project = projects.find(project => project.id === id);
@@ -21,6 +21,11 @@ export default function ProjectDetails({route}) {
     const completeProjectHandler = async () => {
       await completeProject(project.id);
       navigation.navigate("ActiveMilestones");
+    }
+
+    const deleteProjectHandler = async () => {
+        await deleteProject(project.id);
+        navigation.navigate("ActiveMilestones");
     }
 
     return(
@@ -41,9 +46,14 @@ export default function ProjectDetails({route}) {
                         </View>
             </ImageBackground>
             <View style={projectDetailsStyle.stats.container}>
+              <View>
                 <Text style={projectDetailsStyle.stats.statsText}>Total Task completed: {project.tasks.filter(task => task.completed).length} / {project.tasks.length}</Text>
                 <Text style={projectDetailsStyle.stats.statsText}>Created on: {project.createdAt.toDate().toLocaleDateString()}</Text>
                 <Text style={projectDetailsStyle.stats.statsText}>Deadline: {new Date(project.deadline).toLocaleDateString()}</Text>
+              </View>
+              <View style={{alignItems:'center',justifyContent:'center',padding:5}}>
+                <Button title='Delete' style={deleteBtnStyle} onPress={deleteProjectHandler}></Button>
+              </View>
             </View>
             <ScrollView style={{width:"100%"}} contentContainerStyle={{alignItems:'center'}}>
             <View style={projectDetailsStyle.tasks.container}>
@@ -60,3 +70,18 @@ export default function ProjectDetails({route}) {
     )
 
 }
+
+
+const deleteBtnStyle = StyleSheet.create({
+   btn: {
+    backgroundColor: "red",
+    width: "100%",
+    borderRadius: 5,
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10,
+  },
+})

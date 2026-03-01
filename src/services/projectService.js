@@ -10,6 +10,8 @@ import {
   Timestamp,
   query,
   where,
+  deleteDoc,
+  arrayRemove,
 } from "firebase/firestore";
 
 export const createProject = async (userId, projectData) => {
@@ -50,7 +52,6 @@ export const getAllProjects = async (userId) => {
 };
 
 export const getProjectById = async (id) => {
-    // console.log(id);
     const projectRef = doc(db, 'projects', id);
     const projectSnap = await getDoc(projectRef);
 
@@ -85,3 +86,15 @@ export const completeProjects = async (project) => {
 
     return { ...project, completed: true, completedOn: new Date().toISOString() };
 };
+
+export const delProject = async (projectId,userId) => {
+
+  const projectRef = doc(db, 'projects', projectId);
+  await deleteDoc(projectRef);
+
+  const userRef = doc(db, 'users', userId);
+  await updateDoc(userRef,{
+    projects: arrayRemove(projectId),
+  });
+
+}

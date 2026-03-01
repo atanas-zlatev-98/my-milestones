@@ -1,11 +1,5 @@
 import { createContext, useEffect } from "react";
-import {
-  completeProjects,
-  createProject,
-  getAllProjects,
-  getProjectById,
-  updateTaskItem,
-} from "../../services/projectService";
+import { completeProjects, createProject, getAllProjects,getProjectById, updateTaskItem ,delProject} from "../../services/projectService";
 import { useState } from "react";
 import useAuth from "../auth/useAuth";
 
@@ -15,6 +9,7 @@ export const ProjectsContext = createContext({
   updateProjectTasks: () => {},
   completeProject: () => {},
   refetchProjects: () => {},
+  deleteProject: () => {},
 });
 
 export default function ProjectsProvider({ children }) {
@@ -84,12 +79,24 @@ export default function ProjectsProvider({ children }) {
     }
   };
 
+  const deleteProject = async (projectId) => {
+    try{
+        await delProject(projectId,user.id);
+        setProjects((prevProjects) =>
+        prevProjects.filter((project) => project.id !== projectId),
+      );
+    }catch(err){
+      setErrors(`Failed to delete project: ${err}`);
+    }
+  }
+
   const contextValue = {
     projects,
     createNewProjects,
     updateProjectTasks,
     completeProject,
     refetchProjects: fetchProjects,
+    deleteProject,
   };
 
   return (
