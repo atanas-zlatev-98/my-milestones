@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontWeight:"bold",
   },
-  titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff" },
+  titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff",width:"80%" },
   completedTasks:{
     alignItems:'flex-end',
     flexDirection:'column',

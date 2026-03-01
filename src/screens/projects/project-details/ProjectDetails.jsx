@@ -1,4 +1,4 @@
-import { ImageBackground, Text, View,StatusBar, Image } from "react-native"
+import { ImageBackground, Text, View,StatusBar, Image,ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { projectDetailsStyle } from "./ProjectDetails.style";
 import { FlatList } from "react-native-gesture-handler";
@@ -39,13 +39,17 @@ export default function ProjectDetails({route}) {
                 <Text style={projectDetailsStyle.stats.statsText}>Created on: {project.createdAt.toDate().toLocaleDateString()}</Text>
                 <Text style={projectDetailsStyle.stats.statsText}>Deadline: {new Date(project.deadline).toLocaleDateString()}</Text>
             </View>
+            <ScrollView style={{width:"100%"}} contentContainerStyle={{alignItems:'center'}}>
             <View style={projectDetailsStyle.tasks.container}>
-                <FlatList data={project.tasks} renderItem={({item,index})=><ProjectDetailsTaskItem {...item} projectId={project.id} isLast={index === project.tasks.length - 1} />} keyExtractor={item=>item.id}></FlatList>
+                {/* <FlatList data={project.tasks} renderItem={({item,index})=><ProjectDetailsTaskItem {...item} projectId={project.id} isLast={index === project.tasks.length - 1} />} keyExtractor={item=>item.id} contentContainerStyle={{paddingBottom: 50}}></FlatList> */}
+                
+                {project.tasks.map((task, index) => <ProjectDetailsTaskItem key={task.id} {...task} projectId={project.id} isLast={index === project.tasks.length - 1} />)}    
             </View>
-
+            </ScrollView>
             <View style={projectDetailsStyle.btnContainer}>
               <Button title="Complete Project" style={projectDetailsStyle} onPress={completeProjectHandler}></Button>
             </View>
+
         </SafeAreaView>
     )
 

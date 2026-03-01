@@ -286,7 +286,7 @@ export default function CreateProject() {
                       </Text>
                     )}
 
-                    <View style={{ flexDirection: "row", gap: 5 }}>
+                    <View style={{ flexDirection: "row", gap: 5,flexWrap: "wrap" }}>
                       {projectTasks.map((task) => (
                         <TasksItem
                           key={task.id}

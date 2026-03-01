@@ -20,7 +20,7 @@ export default function ProjectsProvider({ children }) {
     const fetchProjects = async () => {
       try {
         const projectsData = await getAllProjects(user.id);
-        setProjects(projectsData);
+        setProjects(projectsData.filter(project => !project.completed));
       } catch (err) {
         setErrors(`Failed to fetch projects: ${err}`);
       }
