@@ -39,6 +39,7 @@ export const projectDetailsTaskItemModalStyles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
+    fontSize:20,
     textAlign: "center",
   },
    btn: {

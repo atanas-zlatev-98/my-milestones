@@ -21,9 +21,8 @@ export default function ProjectDetailsTaskItemModal({ visible, onClose,taskData,
         >
             <View style={projectDetailsTaskItemModalStyles.centeredView}>
                 <View style={projectDetailsTaskItemModalStyles.modalView}>
-                    <Text style={projectDetailsTaskItemModalStyles.modalText}>Hello World!</Text>
-                        <Text style={projectDetailsTaskItemModalStyles.textStyle}>Hide Modal</Text>
-                        <Text>{taskData.id}</Text>
+                    <Text style={projectDetailsTaskItemModalStyles.modalText}>Complete task <Text style={{fontWeight:'bold'}}>"{taskData.title}"</Text> ?</Text>
+                       <Text style={{fontSize:20,marginBottom:20}}>Task will be completed on: <Text style={{fontWeight:'bold'}}>{new Date().toLocaleDateString()}</Text></Text> 
                         <Button title="Complete Task" style={projectDetailsTaskItemModalStyles} onPress={competeTaskItemHandler}></Button>
                 </View>
             </View>

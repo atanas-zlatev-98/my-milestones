@@ -106,7 +106,7 @@ export default function CreateProject() {
     setProjectName("");
     setProjectField("");
     setProjectTasks([]);
-    setDeadline(null);
+    setDeadline(new Date());
     navigation.navigate("Milestones", { screen: "ActiveMilestones" });
   };
 

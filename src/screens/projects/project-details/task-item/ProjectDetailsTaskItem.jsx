@@ -47,7 +47,7 @@ export default function ProjectDetailsTaskItem({projectId, isLast, ...task }) {
           </View>
         </View>
       </TouchableOpacity>
-            <ProjectDetailsTaskItemModal visible={modalVisible} onClose={()=>setModalVisible(false)} taskData={task} projectId={projectId}></ProjectDetailsTaskItemModal>
+            <ProjectDetailsTaskItemModal visible={task.completed ? false : modalVisible} onClose={()=>setModalVisible(false)} taskData={task} projectId={projectId}></ProjectDetailsTaskItemModal>
     </View>
   );
 }
