@@ -21,6 +21,8 @@ export default function ActiveMilestones() {
     }
   }, [refetchProjects]);
 
+  const notCompletedProjects = projects.filter((project) => !project.completed);
+
   return (
     <SafeAreaView>
       <View style={activeMilestonesStyle.header}>
@@ -34,12 +36,12 @@ export default function ActiveMilestones() {
             alignItems: "center",
           }}
         >
-          Active: {projects.length}
+          Active: {notCompletedProjects.length}
         </Text>
       </View>
       {/* <Text>Active MileStones {projects.length}</Text> */}
       <View style={{ padding: 10,height:"100%",justifyContent: "center",alignItems: "center" }}>
-        {projects.length === 0 ? (
+        {notCompletedProjects.length === 0 ? (
           <View style={activeMilestonesStyle.activeProjects}>
             <Text style={activeMilestonesStyle.text}>
               No active Projects
@@ -50,7 +52,7 @@ export default function ActiveMilestones() {
           <FlatList
             refreshing={refreshProjects}
             onRefresh={onRefresh}
-            data={projects}
+            data={notCompletedProjects}
             renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
             keyExtractor={(item) => item?.id}
             contentContainerStyle={{ paddingBottom: 50 }}

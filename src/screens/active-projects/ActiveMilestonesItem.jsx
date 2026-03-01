@@ -1,13 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
 import {View, Text, TouchableOpacity, ImageBackground, Image, StyleSheet} from "react-native";
+import { useEffect } from "react";
 
-export default function ActiveMilestonesItem({...project}) {
+export default function ActiveMilestonesItem({fromProfile,...project}) {
 
 const completedTasks = project.tasks.filter(task=>task.completed).length;
 const navigation = useNavigation();
 
+const navigateTo = () => {
+  if (fromProfile) {
+    navigation.navigate('Milestones', { screen: 'ProjectDetails', params: { id: project.id } });
+  } else {
+    navigation.navigate('ProjectDetails', { id: project.id });
+  }
+};
+
+useEffect(() => {
+    console.log(navigation.getState());
+  }, []);
+
   return (
-    <TouchableOpacity onPress={()=>navigation.navigate('ProjectDetails',{id: project.id})}>
+    <TouchableOpacity onPress={navigateTo}>
       <ImageBackground source={{ uri: project.backgroundImage }} resizeMode="cover" style={styles.bgImage}>
         
         <View style={styles.container}>

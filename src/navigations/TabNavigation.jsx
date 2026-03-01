@@ -1,17 +1,18 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ActiveMilestones from "../screens/active-projects/ActiveMilestonesScreen";
-import Profile from "../screens/profile/ProfileScreen";
 import CreateProject from "../screens/projects/create-project/CreateProject";
 import { Home, User, CirclePlus } from "lucide-react-native";
-import MilestonesNavigation from "./MilestonesNavigation";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import MilestonesNavigation from "./MilestonesNavigation";
+import ProfileNavigation from "./ProfileNavigation";
 
 export default function TabNavigator() {
 
   const Tabs = createBottomTabNavigator();
 
   const getTabBarVisibility = (route) => {
+
     const routeName = getFocusedRouteNameFromRoute(route);
+    
     if (routeName === "ProjectDetails") {
       return { display: "none" };
     }
@@ -68,7 +69,7 @@ export default function TabNavigator() {
       ></Tabs.Screen>
       <Tabs.Screen
         name="MyProfile"
-        component={Profile}
+        component={ProfileNavigation}
         options={{ title: "My Profile" }}
       ></Tabs.Screen>
     </Tabs.Navigator>

@@ -10,6 +10,7 @@ export const ProjectsContext = createContext({
   completeProject: () => {},
   refetchProjects: () => {},
   deleteProject: () => {},
+  
 });
 
 export default function ProjectsProvider({ children }) {
@@ -19,7 +20,7 @@ export default function ProjectsProvider({ children }) {
   const fetchProjects = async () => {
     try {
       const projectsData = await getAllProjects(user.id);
-      setProjects(projectsData.filter((project) => !project.completed));
+      setProjects(projectsData);
     } catch (err) {
       setErrors(`Failed to fetch projects: ${err}`);
     }
