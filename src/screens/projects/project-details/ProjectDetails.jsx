@@ -13,11 +13,11 @@ export default function ProjectDetails({route}) {
     const navigation = useNavigation();
 
     const project = projects.find(project => project.id === id);
+
     if(!project){
-      return (
-        null
-      )
+      return null;
     }
+
     const completeProjectHandler = async () => {
       await completeProject(project.id);
       navigation.navigate("ActiveMilestones");
@@ -53,7 +53,7 @@ export default function ProjectDetails({route}) {
             </View>
             </ScrollView>
             <View style={projectDetailsStyle.btnContainer}>
-              <Button title="Complete Project" style={projectDetailsStyle} onPress={completeProjectHandler}></Button>
+              <Button title="Complete Project" style={projectDetailsStyle} disabled={project.tasks.filter(task => task.completed === true).length !== project.tasks.length} onPress={completeProjectHandler}></Button>
             </View>
 
         </SafeAreaView>

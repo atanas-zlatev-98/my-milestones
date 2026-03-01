@@ -67,6 +67,11 @@ export const projectDetailsStyle = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
   },
+  btnDisabled:{
+    backgroundColor: "#a0a0a0",
+    width: "100%",
+    borderRadius: 5,
+  },
   btnText: {
     color: "#FFF",
     fontSize: 20,
