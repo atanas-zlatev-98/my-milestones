@@ -1,20 +1,26 @@
 import { ImageBackground, Text, View,StatusBar, Image,ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { projectDetailsStyle } from "./ProjectDetails.style";
-import { FlatList } from "react-native-gesture-handler";
 import ProjectDetailsTaskItem from "./task-item/ProjectDetailsTaskItem";
 import Button from "../../../components/Button";
 import useProjects from "../../../context/projects/useProjects";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProjectDetails({route}) {
   
     const {id} = route.params;
     const {projects,completeProject} = useProjects();
+    const navigation = useNavigation();
 
     const project = projects.find(project => project.id === id);
-
+    if(!project){
+      return (
+        null
+      )
+    }
     const completeProjectHandler = async () => {
       await completeProject(project.id);
+      navigation.navigate("ActiveMilestones");
     }
 
     return(

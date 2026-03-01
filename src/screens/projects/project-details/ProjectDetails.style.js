@@ -25,6 +25,7 @@ export const projectDetailsStyle = StyleSheet.create({
   },
   fieldText: {
     backgroundColor: "#ffffff",
+    fontWeight: "bold",
     alignSelf: "flex-start",
     color: "#5458b5",
     paddingLeft: 5,

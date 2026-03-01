@@ -72,11 +72,7 @@ export default function ProjectsProvider({ children }) {
 
       const updatedProject = await completeProjects(project);
 
-      setProjects((prevProjects) =>
-        prevProjects.map((project) =>
-          project.id === updatedProject.id ? updatedProject : project ,
-        ),
-      );
+      setProjects((prevProjects) =>prevProjects.filter(project => project.id !== updatedProject.id));
       
     } catch (err) {
       setErrors(`Failed to complete project: ${err}`);
