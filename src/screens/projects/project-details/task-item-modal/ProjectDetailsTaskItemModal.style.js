@@ -1,16 +1,25 @@
 import { StyleSheet } from "react-native";
 
 export const projectDetailsTaskItemModalStyles = StyleSheet.create({
+  modalHeaderClose:{
+    width:'100%',
+    justifyContent:'flex-end',
+    alignItems:'flex-end',
+    padding:10,
+    
+  },
   centeredView: {
+    width:'100%',
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   modalView: {
+    width:'80%',
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
