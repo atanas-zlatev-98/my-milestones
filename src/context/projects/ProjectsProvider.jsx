@@ -1,5 +1,11 @@
 import { createContext, useEffect } from "react";
-import { completeProjects, createProject, getAllProjects, getProjectById, updateTaskItem} from "../../services/projectService";
+import {
+  completeProjects,
+  createProject,
+  getAllProjects,
+  getProjectById,
+  updateTaskItem,
+} from "../../services/projectService";
 import { useState } from "react";
 import useAuth from "../auth/useAuth";
 
@@ -8,23 +14,24 @@ export const ProjectsContext = createContext({
   createNewProjects: () => {},
   updateProjectTasks: () => {},
   completeProject: () => {},
+  refetchProjects: () => {},
 });
 
 export default function ProjectsProvider({ children }) {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
 
+  const fetchProjects = async () => {
+    try {
+      const projectsData = await getAllProjects(user.id);
+      setProjects(projectsData.filter((project) => !project.completed));
+    } catch (err) {
+      setErrors(`Failed to fetch projects: ${err}`);
+    }
+  };
+
   useEffect(() => {
     if (!user?.id) return;
-
-    const fetchProjects = async () => {
-      try {
-        const projectsData = await getAllProjects(user.id);
-        setProjects(projectsData.filter(project => !project.completed));
-      } catch (err) {
-        setErrors(`Failed to fetch projects: ${err}`);
-      }
-    };
     fetchProjects();
   }, [user?.id]);
 
@@ -39,9 +46,8 @@ export default function ProjectsProvider({ children }) {
 
   const updateProjectTasks = async (projectId, taskId) => {
     try {
-      
       const project = await getProjectById(projectId);
-      
+
       if (!project) {
         setErrors("Project not found");
         return;
@@ -54,7 +60,6 @@ export default function ProjectsProvider({ children }) {
           project.id === updatedTasks.id ? updatedTasks : project,
         ),
       );
-
     } catch (err) {
       setErrors(`Failed to update project tasks: ${err}`);
     }
@@ -62,7 +67,6 @@ export default function ProjectsProvider({ children }) {
 
   const completeProject = async (projectId) => {
     try {
-      
       const project = await getProjectById(projectId);
 
       if (!project) {
@@ -72,8 +76,9 @@ export default function ProjectsProvider({ children }) {
 
       const updatedProject = await completeProjects(project);
 
-      setProjects((prevProjects) =>prevProjects.filter(project => project.id !== updatedProject.id));
-      
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => project.id !== updatedProject.id),
+      );
     } catch (err) {
       setErrors(`Failed to complete project: ${err}`);
     }
@@ -83,7 +88,8 @@ export default function ProjectsProvider({ children }) {
     projects,
     createNewProjects,
     updateProjectTasks,
-    completeProject
+    completeProject,
+    refetchProjects: fetchProjects,
   };
 
   return (
