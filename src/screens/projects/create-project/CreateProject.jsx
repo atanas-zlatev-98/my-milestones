@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TextInput,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, KeyboardAvoidingView, Platform, ScrollView, TextInput, ActivityIndicator} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createProjectStyle } from "./CreateProject.style";
 import { createProjectSchema } from "../../../validation/validationSchemas";
@@ -121,20 +113,13 @@ export default function CreateProject() {
   return (
     <>
       {loading ? (
-        <ActivityIndicator
-          size="large"
-          color="#5458b5"
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        />
+        <ActivityIndicator size="large" color="#5458b5" style={{ flex: 1, justifyContent: "center", alignItems: "center" }}/>
       ) : (
         <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
-          <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-          >
-            <ScrollView
-              contentContainerStyle={createProjectStyle.scrollViewContent}
-            >
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+
+            <ScrollView contentContainerStyle={createProjectStyle.scrollViewContent}>
+
               <View style={{ marginBottom: 20 }}>
                 <Text style={createProjectStyle.topText.projects}>
                   Projects
@@ -145,78 +130,55 @@ export default function CreateProject() {
               </View>
 
               <View style={createProjectStyle.content}>
+
                 <View style={createProjectStyle.group}>
+
                   <Text style={createProjectStyle.group.label}>
                     Select Icon
                   </Text>
-                  <ImagePicker
-                    onImagePicked={setIconImageUri}
-                    imageUri={iconImageUri}
-                    placeholderText="Select Icon"
-                  ></ImagePicker>
+
+                  <ImagePicker onImagePicked={setIconImageUri} imageUri={iconImageUri} placeholderText="Select Icon" ></ImagePicker>
+                  
                   {errors.iconImageUri && (
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 12,
-                        marginTop: 4,
-                        fontWeight: "bold",
-                      }}
-                    >
+                    <Text style={createProjectStyle.error}>
                       {errors.iconImageUri}
                     </Text>
                   )}
                 </View>
 
                 <View style={createProjectStyle.group}>
+
                   <Text style={createProjectStyle.group.label}>
                     Select Background
                   </Text>
-                  <ImagePicker
-                    onImagePicked={setBackgroundImageUri}
-                    imageUri={backgroundImageUri}
-                    placeholderText="Select Background Image"
-                  ></ImagePicker>
+
+                  <ImagePicker onImagePicked={setBackgroundImageUri} imageUri={backgroundImageUri} placeholderText="Select Background Image"></ImagePicker>
+                  
                   {errors.backgroundImageUri && (
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 12,
-                        marginTop: 4,
-                        fontWeight: "bold",
-                      }}
-                    >
+                    <Text style={createProjectStyle.error}>
                       {errors.backgroundImageUri}
                     </Text>
                   )}
+
                 </View>
               </View>
 
               <View style={createProjectStyle.groups}>
+
                 <View style={createProjectStyle.group}>
+
                   <Text style={createProjectStyle.group.label}>
                     Project Name
                   </Text>
 
-                  <TextInput
-                    style={createProjectStyle.inputField}
-                    placeholder="Enter your projects name..."
-                    onChangeText={setProjectName}
-                    value={projectName}
-                  />
+                  <TextInput style={createProjectStyle.inputField} placeholder="Enter your projects name..." onChangeText={setProjectName} value={projectName}/>
 
                   {errors.projectName && (
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 12,
-                        marginTop: 4,
-                        fontWeight: "bold",
-                      }}
-                    >
+                    <Text style={createProjectStyle.error}>
                       {errors.projectName}
                     </Text>
                   )}
+
                 </View>
 
                 <View style={createProjectStyle.group}>
@@ -225,22 +187,11 @@ export default function CreateProject() {
                   </Text>
 
                   <View>
-                    <TextInput
-                      style={createProjectStyle.inputField}
-                      placeholder="Field: Web, Mobile, etc..."
-                      onChangeText={setProjectField}
-                      value={projectField}
-                    />
+                    <TextInput style={createProjectStyle.inputField} placeholder="Field: Web, Mobile, etc..." onChangeText={setProjectField} value={projectField}/>
                   </View>
+
                   {errors.projectField && (
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 12,
-                        marginTop: 4,
-                        fontWeight: "bold",
-                      }}
-                    >
+                    <Text style={createProjectStyle.error}>
                       {errors.projectField}
                     </Text>
                   )}
@@ -251,20 +202,9 @@ export default function CreateProject() {
                     Project Tasks
                   </Text>
 
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      gap: 8,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 8,
-                      }}
-                    >
+                  <View style={{ flexDirection: "column", alignItems: "flex-start",gap: 8}}>
+                    <View style={{flexDirection: "row", alignItems: "center", gap: 8}}>
+
                       <TextInput
                         style={createProjectStyle.inputField}
                         placeholder="Enter your projects tasks..."
@@ -274,34 +214,18 @@ export default function CreateProject() {
                       />
 
                       <View style={{ width: "15%" }}>
-                        <Button
-                          title={"+"}
-                          style={createProjectStyle}
-                          onPress={handleProjectTasks}
-                        />
+                        <Button title={"+"} style={createProjectStyle} onPress={handleProjectTasks}/>
                       </View>
                     </View>
 
                     {errors.projectTasks && (
-                      <Text
-                        style={{
-                          color: "red",
-                          fontSize: 12,
-                          fontWeight: "bold",
-                        }}
-                      >
+                      <Text style={createProjectStyle.error}>
                         {errors.projectTasks}
                       </Text>
                     )}
 
                     {errors.projectTaskName && (
-                      <Text
-                        style={{
-                          color: "red",
-                          fontSize: 12,
-                          fontWeight: "bold",
-                        }}
-                      >
+                      <Text style={createProjectStyle.error}>
                         {errors.projectTaskName}
                       </Text>
                     )}
@@ -318,24 +242,14 @@ export default function CreateProject() {
                   </View>
 
                   <View style={createProjectStyle.group}>
+
                     <Text style={createProjectStyle.group.label}>
                       Project Deadline
                     </Text>
 
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        gap: 8,
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 8,
-                        }}
-                      >
+                    <View style={{flexDirection: "column", alignItems: "flex-start",gap: 8}}>
+                      <View style={{flexDirection: "row", alignItems: "center",gap: 8}}>
+                        
                         <TextInput
                           style={createProjectStyle.inputField}
                           placeholder="Select a deadline..."
@@ -344,14 +258,12 @@ export default function CreateProject() {
                         />
 
                         <View style={{ width: "15%" }}>
-                          <Button
-                            title="+"
-                            style={createProjectStyle}
-                            onPress={() => setShowDatePicker(true)}
-                          ></Button>
+                          <Button title="+" style={createProjectStyle} onPress={() => setShowDatePicker(true)}></Button>
                         </View>
+                      </View>
 
-                        {showDatePicker && (
+                      <View style={{justifyContent: "center",alignItems: "center",width:"100%"}}>
+                         {showDatePicker && (
                           <DateTimePicker
                             value={deadline}
                             mode="date"
@@ -359,25 +271,17 @@ export default function CreateProject() {
                             onChange={handleDeadlineChange}
                           ></DateTimePicker>
                         )}
+                        
                       </View>
 
                       {errors.deadline && (
-                        <Text
-                          style={{
-                            color: "red",
-                            fontSize: 12,
-                            fontWeight: "bold",
-                          }}
-                        >
+                        <Text style={createProjectStyle.error}>
                           {errors.deadline}
                         </Text>
                       )}
 
-                      <Button
-                        title={"Create Project"}
-                        style={createProjectStyle}
-                        onPress={handleCreateProject}
-                      ></Button>
+                      <Button title={"Create Project"} style={createProjectStyle} onPress={handleCreateProject}></Button>
+
                     </View>
                   </View>
                 </View>

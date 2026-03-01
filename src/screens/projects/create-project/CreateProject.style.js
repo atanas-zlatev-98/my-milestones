@@ -76,4 +76,10 @@ export const createProjectStyle = StyleSheet.create({
     textAlign: "center",
     padding: 10,
   },
+  error: {
+    color: "red",
+    fontSize: 12,
+    marginTop: 4,
+    fontWeight: "bold",
+  },
 });

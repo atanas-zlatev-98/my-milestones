@@ -50,12 +50,15 @@ export default function Profile() {
         </View>
 
         <View style={{ padding: 10,flex:1 }}>
+          {showCompleted && completedProjects.length === 0 && <Text style={{fontSize:16,fontStyle:'italic'}}>No completed projects yet...</Text>}
           {showCompleted && <FlatList
                       data={completedProjects}
                       renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
                       keyExtractor={(item) => item?.id}
                       contentContainerStyle={{ paddingBottom: 50, }}
                     />}
+                    
+          {showTotal && notCompleted.length === 0 && <Text style={{fontSize:16,fontStyle:'italic'}}>No upcoming projects yet...</Text>}
           {showTotal && <FlatList
                       data={notCompleted}
                       renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
