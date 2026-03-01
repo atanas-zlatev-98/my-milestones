@@ -116,7 +116,7 @@ export default function CreateProject() {
         <ActivityIndicator size="large" color="#5458b5" style={{ flex: 1, justifyContent: "center", alignItems: "center" }}/>
       ) : (
         <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 
             <ScrollView contentContainerStyle={createProjectStyle.scrollViewContent}>
 

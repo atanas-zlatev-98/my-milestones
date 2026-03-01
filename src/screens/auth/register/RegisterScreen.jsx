@@ -57,7 +57,8 @@ export default function Register() {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={headerHeight}
+        // keyboardVerticalOffset={headerHeight}
+        keyboardVerticalOffset={Platform.OS === "ios" ? headerHeight : 0}
       >
         <ScrollView contentContainerStyle={registerStyle.scrollViewContent}>
           <View>
