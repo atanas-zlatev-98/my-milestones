@@ -17,6 +17,16 @@ export default function Profile() {
   const completedProjects = projects.filter(project => project.completed);
   const totalProjects = projects.filter(project => !project.completed);  
 
+  const handleTotalProjects = () => {
+    setShowTotal(true);
+    setShowCompleted(false);
+  };
+
+  const handleCompletedProjects = () => {
+    setShowTotal(false);
+    setShowCompleted(true);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={profileStyle.container}>
@@ -26,18 +36,24 @@ export default function Profile() {
 
         <View style={profileStyle.userProjects}>
 
-            <TouchableOpacity>
-              <Text style={profileStyle.userProjects.text}>Total Projects: {projects.length}</Text>
+            <TouchableOpacity onPress={handleTotalProjects}>
+              <Text style={[profileStyle.userProjects.text, showTotal ? profileStyle.active : null]}>Total Projects: {projects.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-              <Text style={profileStyle.userProjects.text}>Completed Projects: {completedProjects.length}</Text>
+            <TouchableOpacity onPress={handleCompletedProjects}>
+              <Text style={[profileStyle.userProjects.text, showCompleted ? profileStyle.active : null]}>Completed Projects: {completedProjects.length}</Text>
             </TouchableOpacity>
         </View>
 
         <View style={{ padding: 10,flex:1 }}>
           {showCompleted && <FlatList
                       data={completedProjects}
+                      renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
+                      keyExtractor={(item) => item?.id}
+                      contentContainerStyle={{ paddingBottom: 50, }}
+                    />}
+          {showTotal && <FlatList
+                      data={totalProjects}
                       renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
                       keyExtractor={(item) => item?.id}
                       contentContainerStyle={{ paddingBottom: 50, }}

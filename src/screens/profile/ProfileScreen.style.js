@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export const profileStyle = StyleSheet.create({
+   active:{
+    backgroundColor:'#5458b5',
+    color:'#fff',
+  },
   header:{
     width:'100%',
     flexDirection:'row',
@@ -35,6 +39,8 @@ export const profileStyle = StyleSheet.create({
      text:{
       fontWeight:'bold',
         fontSize:18,
+        padding:5,
+        borderRadius:5,
      }
   },
     btn: {
