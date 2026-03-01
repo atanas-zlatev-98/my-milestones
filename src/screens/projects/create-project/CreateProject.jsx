@@ -44,6 +44,14 @@ export default function CreateProject() {
   const { createNewProjects } = useProjects();
 
   const handleProjectTasks = () => {
+
+    if (projectTaskName.length < 3) {
+    setErrors((prev) => ({ ...prev, projectTaskName: "Project task field must be at least 3 characters" }));
+    return;
+  }
+
+  setErrors((prev) => ({ ...prev, projectTaskName: null }));
+
     const newTask = {
       id: uuid.v4(),
       title: projectTaskName,
@@ -72,7 +80,7 @@ export default function CreateProject() {
   const handleCreateProject = async () => {
     setErrors({});
 
-    const validation = checkValidation(createProjectSchema, {
+    const validation = checkValidation(createProjectSchema.omit({ projectTaskName: true }), {
       iconImageUri,
       backgroundImageUri,
       projectName,
@@ -283,6 +291,18 @@ export default function CreateProject() {
                         }}
                       >
                         {errors.projectTasks}
+                      </Text>
+                    )}
+
+                    {errors.projectTaskName && (
+                      <Text
+                        style={{
+                          color: "red",
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {errors.projectTaskName}
                       </Text>
                     )}
 
