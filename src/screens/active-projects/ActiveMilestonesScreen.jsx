@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ActiveMilestones() {
+  
   const { projects, refetchProjects } = useProjects();
   const [refreshProjects, setRefreshProjects] = useState(false);
   const navigation = useNavigation();

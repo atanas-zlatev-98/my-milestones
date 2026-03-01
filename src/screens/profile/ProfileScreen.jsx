@@ -15,18 +15,12 @@ export default function Profile() {
   const [showTotal, setShowTotal] = useState(false);
 
   const completedProjects = projects.filter(project => project.completed);
-  const totalProjects = projects.filter(project => !project.completed);
-
-  
+  const totalProjects = projects.filter(project => !project.completed);  
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={profileStyle.container}>
-        <View style={profileStyle.header}>
-          <View style={{width:'30%'}}>
-          <Button title="Logout" style={profileStyle} onPress={logout}></Button>
-          </View>
-        </View>
+
         <Image source={{uri:user.profilePictureUrl}} style={profileStyle.profileImage}></Image>
         <Text style={profileStyle.userText}>{user.name}</Text>
 
@@ -41,15 +35,21 @@ export default function Profile() {
             </TouchableOpacity>
         </View>
 
-        <View style={{ padding: 10,height:"100%",justifyContent: "center",alignItems: "center" }}>
+        <View style={{ padding: 10,flex:1 }}>
           {showCompleted && <FlatList
                       data={completedProjects}
                       renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
                       keyExtractor={(item) => item?.id}
-                      contentContainerStyle={{ paddingBottom: 50 }}
+                      contentContainerStyle={{ paddingBottom: 50, }}
                     />}
         </View>
+            <View style={profileStyle.header}>
+              <View style={{width:'30%'}}>
+                <Button title="Logout" style={profileStyle} onPress={logout}></Button>
+            </View>
+        </View>
       </View>
+      
     </SafeAreaView>
   );
 }

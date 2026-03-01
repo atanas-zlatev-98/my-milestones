@@ -14,6 +14,7 @@ export const ProjectsContext = createContext({
 });
 
 export default function ProjectsProvider({ children }) {
+  
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
 
@@ -72,9 +73,16 @@ export default function ProjectsProvider({ children }) {
 
       const updatedProject = await completeProjects(project);
 
+      // setProjects((prevProjects) =>
+      //   prevProjects.filter((project) => project.id !== updatedProject.id),
+      // );
+
       setProjects((prevProjects) =>
-        prevProjects.filter((project) => project.id !== updatedProject.id),
-      );
+      prevProjects.map((project) =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    );
+
     } catch (err) {
       setErrors(`Failed to complete project: ${err}`);
     }

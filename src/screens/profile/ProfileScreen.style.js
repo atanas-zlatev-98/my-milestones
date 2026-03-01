@@ -4,7 +4,7 @@ export const profileStyle = StyleSheet.create({
   header:{
     width:'100%',
     flexDirection:'row',
-    justifyContent:'flex-end',
+    justifyContent:'center',
      marginBottom:20,
   },
   container:{
