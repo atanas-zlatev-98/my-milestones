@@ -31,7 +31,7 @@ export const profileStyle = StyleSheet.create({
   },
   userProjects:{
     justifyContent:'space-between',
-    width:'85%',
+    width:'95%',
     gap:10,
     flexDirection:'row',
      marginTop:20,

@@ -15,13 +15,12 @@ import useProjects from "../../../context/projects/useProjects";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ProjectDetails({ route }) {
-
   const { id } = route.params;
   const { projects, completeProject, deleteProject } = useProjects();
   const navigation = useNavigation();
-  
-  const project = projects.find(project => project.id === id);
-  
+
+  const project = projects.find((project) => project.id === id);
+
   if (!project) {
     return null;
   }
@@ -33,7 +32,7 @@ export default function ProjectDetails({ route }) {
 
   const deleteProjectHandler = async () => {
     await deleteProject(project.id);
-      navigation.goBack();
+    navigation.goBack();
   };
 
   return (
@@ -83,11 +82,13 @@ export default function ProjectDetails({ route }) {
         <View
           style={{ alignItems: "center", justifyContent: "center", padding: 5 }}
         >
-          <Button
-            title="Delete"
-            style={deleteBtnStyle}
-            onPress={deleteProjectHandler}
-          ></Button>
+          {!project.completed && (
+            <Button
+              title="Delete"
+              style={deleteBtnStyle}
+              onPress={deleteProjectHandler}
+            ></Button>
+          )}
         </View>
       </View>
       <ScrollView
@@ -108,15 +109,23 @@ export default function ProjectDetails({ route }) {
         </View>
       </ScrollView>
       <View style={projectDetailsStyle.btnContainer}>
-        <Button
-          title="Complete Project"
-          style={projectDetailsStyle}
-          disabled={
-            project.tasks.filter((task) => task.completed === true).length !==
-            project.tasks.length
-          }
-          onPress={completeProjectHandler}
-        ></Button>
+        {project.completed ? (
+          <Button
+            title="Delete"
+            style={deleteBtnStyle}
+            onPress={deleteProjectHandler}
+          ></Button>
+        ) : (
+          <Button
+            title="Complete Project"
+            style={projectDetailsStyle}
+            disabled={
+              project.tasks.filter((task) => task.completed === true).length !==
+              project.tasks.length
+            }
+            onPress={completeProjectHandler}
+          ></Button>
+        )}
       </View>
     </SafeAreaView>
   );

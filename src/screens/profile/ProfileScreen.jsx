@@ -1,4 +1,4 @@
-import { Text, View, Image, TouchableOpacity,FlatList } from "react-native";
+import { Text, View, Image, TouchableOpacity,FlatList, ActivityIndicator } from "react-native";
 import Button from "../../components/Button";
 import useAuth from "../../context/auth/useAuth";
 import useProjects from "../../context/projects/useProjects";
@@ -15,7 +15,7 @@ export default function Profile() {
   const [showTotal, setShowTotal] = useState(false);
 
   const completedProjects = projects.filter(project => project.completed);
-  const totalProjects = projects.filter(project => !project.completed);  
+  const notCompleted = projects.filter(project => !project.completed);  
 
   const handleTotalProjects = () => {
     setShowTotal(true);
@@ -27,6 +27,10 @@ export default function Profile() {
     setShowCompleted(true);
   };
 
+  if (!user){
+    return (<ActivityIndicator size="large" color="#0000ff" style={{flex:1,justifyContent:'center',alignItems:'center'}}></ActivityIndicator>)
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={profileStyle.container}>
@@ -37,11 +41,11 @@ export default function Profile() {
         <View style={profileStyle.userProjects}>
 
             <TouchableOpacity onPress={handleTotalProjects}>
-              <Text style={[profileStyle.userProjects.text, showTotal ? profileStyle.active : null]}>Total Projects: {projects.length}</Text>
+              <Text style={[profileStyle.userProjects.text, showTotal ? profileStyle.active : null]}>Upcoming: {notCompleted.length}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleCompletedProjects}>
-              <Text style={[profileStyle.userProjects.text, showCompleted ? profileStyle.active : null]}>Completed Projects: {completedProjects.length}</Text>
+              <Text style={[profileStyle.userProjects.text, showCompleted ? profileStyle.active : null]}>Completed: {completedProjects.length}</Text>
             </TouchableOpacity>
         </View>
 
@@ -53,7 +57,7 @@ export default function Profile() {
                       contentContainerStyle={{ paddingBottom: 50, }}
                     />}
           {showTotal && <FlatList
-                      data={totalProjects}
+                      data={notCompleted}
                       renderItem={({ item }) => <ActiveMilestonesItem {...item} />}
                       keyExtractor={(item) => item?.id}
                       contentContainerStyle={{ paddingBottom: 50, }}
