@@ -12,11 +12,11 @@ const navigation = useNavigation();
         
         <View style={styles.container}>
 
-          <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={{ flexDirection: "row", gap: 10,flex:1 }}>
             <Image source={{ uri: project.icon }} style={{ width: 80, height: 80, borderRadius: 5 }}></Image>
             
             <View style={{ flexDirection: "column",gap: 5,justifyContent: "flex-start"}}>
-              <Text style={styles.fieldText}>{project.field}</Text>
+              <Text style={styles.fieldText} >{project.field}</Text>
               <Text style={styles.titleText}>{project.title}</Text>
             </View>
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontWeight:"bold",
   },
-  titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff",width:"80%" },
+  titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff", flex:1 },
   completedTasks:{
     alignItems:'flex-end',
     flexDirection:'column',
