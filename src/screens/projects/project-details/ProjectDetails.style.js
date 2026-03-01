@@ -60,6 +60,7 @@ export const projectDetailsStyle = StyleSheet.create({
   },
   btnContainer:{
     marginTop:10,
+    marginBottom:10,
     width:'95%',
   },
    btn: {
