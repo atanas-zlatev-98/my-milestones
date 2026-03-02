@@ -4,7 +4,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { projectDetailsTaskItemStyles } from "./ProjectDetailsTaskItem.style";
 import ProjectDetailsTaskItemModal from "../task-item-modal/ProjectDetailsTaskItemModal";
 
-export default function ProjectDetailsTaskItem({projectId, isLast, ...task }) {
+export default function ProjectDetailsTaskItem({project, isLast, ...task }) {
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -47,7 +48,7 @@ export default function ProjectDetailsTaskItem({projectId, isLast, ...task }) {
           </View>
         </View>
       </TouchableOpacity>
-            <ProjectDetailsTaskItemModal visible={task.completed ? false : modalVisible} onClose={()=>setModalVisible(false)} taskData={task} projectId={projectId}></ProjectDetailsTaskItemModal>
+            <ProjectDetailsTaskItemModal visible={task.completed ? false : modalVisible} onClose={()=>setModalVisible(false)} taskData={task} project={project}></ProjectDetailsTaskItemModal>
     </View>
   );
 }

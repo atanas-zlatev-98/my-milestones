@@ -1,12 +1,4 @@
-import {
-  ImageBackground,
-  Text,
-  View,
-  StatusBar,
-  Image,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { ImageBackground, Text, View, StatusBar, Image, ScrollView, StyleSheet} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { projectDetailsStyle } from "./ProjectDetails.style";
 import ProjectDetailsTaskItem from "./task-item/ProjectDetailsTaskItem";
@@ -15,8 +7,9 @@ import useProjects from "../../../context/projects/useProjects";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ProjectDetails({ route }) {
+
   const { id } = route.params;
-  const { projects, completeProject, deleteProject } = useProjects();
+  const { projects, completeProject, deleteProject, error} = useProjects();
   const navigation = useNavigation();
 
   const project = projects.find((project) => project.id === id);
@@ -26,13 +19,22 @@ export default function ProjectDetails({ route }) {
   }
 
   const completeProjectHandler = async () => {
-    await completeProject(project.id);
-    navigation.goBack();
+
+    const result = await completeProject(project);
+
+    if(result){
+      navigation.goBack();
+    }
   };
 
   const deleteProjectHandler = async () => {
-    await deleteProject(project.id);
-    navigation.goBack();
+  
+    const result = await deleteProject(project.id);
+
+    if(result){
+      navigation.goBack();
+    }
+
   };
 
   return (
@@ -92,7 +94,7 @@ export default function ProjectDetails({ route }) {
             <ProjectDetailsTaskItem
               key={task.id}
               {...task}
-              projectId={project.id}
+              project={project}
               isLast={index === project.tasks.length - 1}
             />
           ))}
@@ -100,7 +102,8 @@ export default function ProjectDetails({ route }) {
         </View>
 
       </ScrollView>
-
+        {error.completeError && <Text style={projectDetailsStyle.errorText}>{error.completeError}</Text>}
+        {error.deleteError && <Text style={projectDetailsStyle.errorText}>{error.deleteError}</Text>}
       <View style={projectDetailsStyle.btnContainer}>
         {project.completed ? (
           <Button title="Delete" style={deleteBtnStyle} onPress={deleteProjectHandler}></Button>

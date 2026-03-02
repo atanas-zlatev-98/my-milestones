@@ -17,6 +17,8 @@ import { useHeaderHeight } from '@react-navigation/elements';
 
 export default function CreateProject() {
   const { user } = useAuth();
+  const { error, clearError, createNewProjects } = useProjects();
+
   const headerHeight = useHeaderHeight();
 
   const [backgroundImageUri, setBackgroundImageUri] = useState(null);
@@ -35,7 +37,6 @@ export default function CreateProject() {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const navigation = useNavigation();
-  const { createNewProjects } = useProjects();
 
   const handleProjectTasks = () => {
 
@@ -73,6 +74,7 @@ export default function CreateProject() {
 
   const handleCreateProject = async () => {
     setErrors({});
+    clearError();
 
     const validation = checkValidation(createProjectSchema.omit({ projectTaskName: true }), {
       iconImageUri,
@@ -129,6 +131,7 @@ export default function CreateProject() {
                 <Text style={createProjectStyle.topText.createProject}>
                   Create Project
                 </Text>
+                {error.createError && <Text style={{ color: "red", fontWeight:'bold',fontSize:18 }}>{error.createError}</Text>}
               </View>
 
               <View style={createProjectStyle.content}>

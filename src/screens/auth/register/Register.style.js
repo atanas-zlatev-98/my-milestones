@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 
 export const registerStyle = StyleSheet.create({
+   errorText: {
+    color: "red",
+    fontSize: 12,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
   scrollViewContent: {
     padding: 16,
     paddingTop: 0,
@@ -21,9 +27,9 @@ export const registerStyle = StyleSheet.create({
   content: {
     gap: 5,
   },
-  groups:{
-    flexDirection:'column',
-    gap:15
+  groups: {
+    flexDirection: "column",
+    gap: 15,
   },
   group: {
     label: {

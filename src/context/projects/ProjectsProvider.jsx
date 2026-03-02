@@ -1,16 +1,17 @@
 import { createContext, useEffect } from "react";
-import { completeProjects, createProject, getAllProjects,getProjectById, updateTaskItem ,delProject} from "../../services/projectService";
+import { completeProjects, createProject, getAllProjects, updateTaskItem ,delProject} from "../../services/projectService";
 import { useState } from "react";
 import useAuth from "../auth/useAuth";
 
 export const ProjectsContext = createContext({
   projects: [],
+  error: null,
   createNewProjects: () => {},
   updateProjectTasks: () => {},
   completeProject: () => {},
   refetchProjects: () => {},
   deleteProject: () => {},
-  
+  clearError: () => {},
 });
 
 export default function ProjectsProvider({ children }) {
@@ -18,12 +19,20 @@ export default function ProjectsProvider({ children }) {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
 
+  const [error, setError] = useState({
+    fetchError: null,
+    createError: null,
+    updateError: null,
+    completeError: null,
+    deleteError: null,
+  });
+
   const fetchProjects = async () => {
     try {
       const projectsData = await getAllProjects(user.id);
       setProjects(projectsData);
     } catch (err) {
-      setErrors(`Failed to fetch projects: ${err}`);
+      setError({...error, fetchError: `Failed to fetch projects: ${err.message}`});
     }
   };
 
@@ -37,75 +46,56 @@ export default function ProjectsProvider({ children }) {
       const newProject = await createProject(userId, projectData);
       setProjects((prevProjects) => [...prevProjects, newProject]);
     } catch (err) {
-      setErrors(`Failed to create project: ${err}`);
+      setError({ ...error, createError: `Failed to create project: ${err.message}` });
     }
   };
 
-  const updateProjectTasks = async (projectId, taskId) => {
+  const updateProjectTasks = async (project, taskId) => {
+    
     try {
-      const project = await getProjectById(projectId);
-
-      if (!project) {
-        setErrors("Project not found");
-        return;
-      }
-
       const updatedTasks = await updateTaskItem(project, taskId);
-
-      setProjects((prevProjects) =>
-        prevProjects.map((project) =>
-          project.id === updatedTasks.id ? updatedTasks : project,
-        ),
-      );
+        setProjects((prevProjects) => prevProjects.map((project) => project.id === updatedTasks.id ? updatedTasks : project));
+      return true;
     } catch (err) {
-      setErrors(`Failed to update project tasks: ${err}`);
+        setError({ ...error, updateError: `Failed to update project tasks: ${err.message}` });
+      return false;
     }
   };
 
-  const completeProject = async (projectId) => {
+  const completeProject = async (project) => {
+
     try {
-      const project = await getProjectById(projectId);
-
-      if (!project) {
-        setErrors("Project not found");
-        return;
-      }
-
       const updatedProject = await completeProjects(project);
-
-      // setProjects((prevProjects) =>
-      //   prevProjects.filter((project) => project.id !== updatedProject.id),
-      // );
-
-      setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === updatedProject.id ? updatedProject : project
-      )
-    );
+        setProjects((prevProjects) => prevProjects.map((project) =>project.id === updatedProject.id ? updatedProject : project));
+      return true;
 
     } catch (err) {
-      setErrors(`Failed to complete project: ${err}`);
+        setError({ ...error, completeError: `Failed to complete project: ${err.message}`});
+      return false;
     }
   };
 
   const deleteProject = async (projectId) => {
+
     try{
         await delProject(projectId,user.id);
-        setProjects((prevProjects) =>
-        prevProjects.filter((project) => project.id !== projectId),
-      );
+          setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+        return true;
     }catch(err){
-      setErrors(`Failed to delete project: ${err}`);
+      setError({ ...error, deleteError: `Failed to delete project: ${err.message}`});
+      return false;
     }
   }
 
   const contextValue = {
     projects,
+    error,
     createNewProjects,
     updateProjectTasks,
     completeProject,
     refetchProjects: fetchProjects,
     deleteProject,
+    clearError:()=>setError({fetchError: null, createError: null, updateError: null, completeError: null, deleteError: null}),
   };
 
   return (
