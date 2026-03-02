@@ -40,8 +40,8 @@ export default function CreateProject() {
 
   const handleProjectTasks = () => {
 
-    if (projectTaskName.length < 3) {
-    setErrors((prev) => ({ ...prev, projectTaskName: "Project task field must be at least 3 characters" }));
+    if (projectTaskName.trim().length < 3) {
+      setErrors((prev) => ({ ...prev, projectTaskName: "Project task field must be at least 3 characters" }));
     return;
   }
 
