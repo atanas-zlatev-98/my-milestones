@@ -13,9 +13,11 @@ import uuid from "react-native-uuid";
 import useAuth from "../../../context/auth/useAuth";
 import useProjects from "../../../context/projects/useProjects";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useHeaderHeight } from '@react-navigation/elements';
 
 export default function CreateProject() {
   const { user } = useAuth();
+  const headerHeight = useHeaderHeight();
 
   const [backgroundImageUri, setBackgroundImageUri] = useState(null);
   const [iconImageUri, setIconImageUri] = useState(null);
@@ -116,7 +118,7 @@ export default function CreateProject() {
         <ActivityIndicator size="large" color="#5458b5" style={{ flex: 1, justifyContent: "center", alignItems: "center" }}/>
       ) : (
         <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
-          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? headerHeight : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 
             <ScrollView contentContainerStyle={createProjectStyle.scrollViewContent}>
 

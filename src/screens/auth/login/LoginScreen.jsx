@@ -8,11 +8,13 @@ import useAuth from "../../../context/auth/useAuth";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loginSchema } from "../../../validation/validationSchemas";
 import checkValidation from "../../../validation/checkValidation";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Login() {
 
-  const navigation = useNavigation();
-
+  const navigation = useNavigation(); 
+  const headerHeight = useHeaderHeight();
+  
   const { login, error, clearErrors } = useAuth();
 
   const [email, setEmail] = useState("");
@@ -43,7 +45,7 @@ export default function Login() {
     <>
       {!isLoading ? (<SafeAreaView style={{ flex: 1 }} edges={["left", "right", "bottom"]}>
         
-    <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+    <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? headerHeight : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 
       <View style={loginStyle.container}>
 
