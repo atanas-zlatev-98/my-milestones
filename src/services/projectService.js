@@ -1,27 +1,20 @@
 import { db } from "../config/firebaseConfig";
-import {
-  doc,
-  updateDoc,
-  getDocs,
-  getDoc,
-  arrayUnion,
-  collection,
-  addDoc,
-  Timestamp,
-  query,
-  where,
-  deleteDoc,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, updateDoc, getDocs, getDoc, arrayUnion, collection, addDoc, Timestamp, query, where, deleteDoc, arrayRemove} from "firebase/firestore";
 
 export const createProject = async (userId, projectData) => {
+
+  const userRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User not found");
+  }
+
   const projectRef = await addDoc(collection(db, "projects"), {
     ...projectData,
     createdBy: userId,
     createdAt: Timestamp.now(),
   });
-
-  const userRef = doc(db, "users", userId);
 
   await updateDoc(userRef, {
     projects: arrayUnion(projectRef.id),
@@ -36,6 +29,14 @@ export const createProject = async (userId, projectData) => {
 };
 
 export const getAllProjects = async (userId) => {
+
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User not found");
+  }
+
   const projectsQuery = query(
     collection(db, "projects"),
     where("createdBy", "==", userId),
@@ -52,18 +53,25 @@ export const getAllProjects = async (userId) => {
 };
 
 export const getProjectById = async (id) => {
+
     const projectRef = doc(db, 'projects', id);
     const projectSnap = await getDoc(projectRef);
 
-    if(projectSnap.exists()) {
-        return { id: projectSnap.id, ...projectSnap.data() };
+    if(!projectSnap.exists()) {
+        throw new Error("Project not found");
     }
 
-    return null;
+    return { id: projectSnap.id, ...projectSnap.data() };
 }
 
 export const updateTaskItem = async (project, taskId) => {
+
   const projectRef = doc(db, "projects", project.id);
+  const projectSnap = await getDoc(projectRef);
+
+  if (!projectSnap.exists()) {
+    throw new Error("Project not found");
+  }
 
   const updatedTasks = project.tasks.map((task) =>
     task.id === taskId
@@ -77,7 +85,13 @@ export const updateTaskItem = async (project, taskId) => {
 };
 
 export const completeProjects = async (project) => {
+
    const projectRef = doc(db, 'projects', project.id);
+   const projectSnap = await getDoc(projectRef);
+
+    if(!projectSnap.exists()) {
+        throw new Error("Project not found");
+    }
 
     await updateDoc(projectRef, {
         completed: true,
@@ -90,10 +104,22 @@ export const completeProjects = async (project) => {
 export const delProject = async (projectId,userId) => {
 
   const projectRef = doc(db, 'projects', projectId);
+  const projectSnap = await getDoc(projectRef);
+
+  if (!projectSnap.exists()) {
+    throw new Error("Project not found");
+  }
+
   await deleteDoc(projectRef);
 
   const userRef = doc(db, 'users', userId);
-  await updateDoc(userRef,{
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User not found");
+  }
+
+  await updateDoc(userRef, {
     projects: arrayRemove(projectId),
   });
 

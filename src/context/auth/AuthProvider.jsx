@@ -3,6 +3,7 @@ import { auth } from "../../config/firebaseConfig.js";
 import { createDBUser, getUserById, userLogin, userRegister } from "../../services/userService.js";
 import { onAuthStateChanged,signOut } from "firebase/auth";
 import { getFirebaseAuthErrorMessage } from "../../config/firebaseMessage.js";
+import { set } from "zod";
 
 export const AuthContext = createContext({
     isLoading:null,
@@ -20,9 +21,11 @@ export default function AuthProvider({children}) {
 
     const [authState,setAuthState] = useState({user:null});
     const [isLoading,setIsLoading] = useState(true);
+
     const [error,setError] = useState({
         loginError:null,
         registerError:null,
+        logoutError:null,
     });
 
     useEffect(()=>{
@@ -42,7 +45,7 @@ export default function AuthProvider({children}) {
         
         try{
 
-            setError({loginError:null,registerError:null});
+            // setError({loginError:null,registerError:null,logoutError:null});
 
             const user = await userLogin(email,password);
             const dbUserInfo = await getUserById(user.uid);
@@ -50,7 +53,7 @@ export default function AuthProvider({children}) {
             setAuthState({user:dbUserInfo});
 
         }catch(err){
-            setError({loginError:'Invalid email or password!',registerError:null});
+            setError({loginError:'Invalid email or password!',registerError:null,logoutError:null});
         }
 }
 
@@ -64,7 +67,7 @@ export default function AuthProvider({children}) {
             setAuthState({user:createdUser});
             
         }catch(err){
-            setError({registerError:getFirebaseAuthErrorMessage(err),loginError:null});
+            setError({registerError:getFirebaseAuthErrorMessage(err),loginError:null,logoutError:null});
         }
     }
 
@@ -73,7 +76,7 @@ export default function AuthProvider({children}) {
             await signOut(auth);
             setAuthState({user:null});
         }catch(err){
-            setError('Logout failed!', err.message);
+            setError({logoutError:'Failed to logout. Please try again.', loginError:null, registerError:null});
         }
     }
 

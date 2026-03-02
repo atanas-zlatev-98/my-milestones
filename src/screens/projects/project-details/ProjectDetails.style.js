@@ -81,4 +81,10 @@ export const projectDetailsStyle = StyleSheet.create({
     textAlign: "center",
     padding: 10,
   },
+  errorText:{
+    color: "red",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10,
+  }
 });
