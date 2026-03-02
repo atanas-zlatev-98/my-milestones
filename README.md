@@ -1,7 +1,7 @@
 
 # Functional Guide
 
-1. ## **Project Overview**
+## 1. **Project Overview**
 
 - **Application Name:** My Milestones
 
@@ -11,7 +11,7 @@
 
 ---
 
-2. ## **User Access & Permissions**
+## 2. **User Access & Permissions**
 
 **Guest User (Not Authenticated):** Guest users only see the auth screene Login/Register, to use the app they need to register or login
 
@@ -19,7 +19,7 @@
 
 ---
 
-3. ## **Authentication & Session Handling**
+## 3. **Authentication & Session Handling**
 
 **Authentication Flow:**
 
@@ -39,7 +39,7 @@
 
 ---
 
-4. ## **Navigation Structure**
+## 4. **Navigation Structure**
 
 **Root Navigation Logic:** The app checks if there is an authenticated user, shows a spinner while checking, if there is a user it navigates to main screen, if not to the auth flow login/register screens.
 
