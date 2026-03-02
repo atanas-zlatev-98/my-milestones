@@ -2,10 +2,12 @@ import { createContext, useEffect } from "react";
 import { completeProjects, createProject, getAllProjects, updateTaskItem ,delProject} from "../../services/projectService";
 import { useState } from "react";
 import useAuth from "../auth/useAuth";
+import { set } from "zod";
 
 export const ProjectsContext = createContext({
   projects: [],
   error: null,
+  isLoading: null,
   createNewProjects: () => {},
   updateProjectTasks: () => {},
   completeProject: () => {},
@@ -18,6 +20,7 @@ export default function ProjectsProvider({ children }) {
   
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [error, setError] = useState({
     fetchError: null,
@@ -31,8 +34,9 @@ export default function ProjectsProvider({ children }) {
     try {
       const projectsData = await getAllProjects(user.id);
       setProjects(projectsData);
+      setIsLoading(false);
     } catch (err) {
-      setError({...error, fetchError: `Failed to fetch projects: ${err.message}`});
+        setError({...error, fetchError: `Failed to fetch projects: ${err.message}`});
     }
   };
 
@@ -90,6 +94,7 @@ export default function ProjectsProvider({ children }) {
   const contextValue = {
     projects,
     error,
+    isLoading,
     createNewProjects,
     updateProjectTasks,
     completeProject,

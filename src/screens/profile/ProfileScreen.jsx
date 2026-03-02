@@ -9,7 +9,7 @@ import ActiveMilestonesItem from "../active-projects/ActiveMilestonesItem";
 
 export default function Profile() {
 
-  const { user, logout } = useAuth();
+  const { user,isLoading, logout } = useAuth();
   const {projects} = useProjects();
   const [showCompleted, setShowCompleted] = useState(false);
   const [showTotal, setShowTotal] = useState(true);
@@ -27,7 +27,7 @@ export default function Profile() {
     setShowCompleted(true);
   };
 
-  if (!user){
+  if (isLoading || !user){
     return (<ActivityIndicator size="large" color="#0000ff" style={{flex:1,justifyContent:'center',alignItems:'center'}}></ActivityIndicator>)
   }
 

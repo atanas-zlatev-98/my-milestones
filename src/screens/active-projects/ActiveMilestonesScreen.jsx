@@ -1,15 +1,15 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View,ActivityIndicator} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import useProjects from "../../context/projects/useProjects";
+import { useNavigation } from "@react-navigation/native";
 import { activeMilestonesStyle } from "./ActiveMilestones.style";
-import ActiveMilestonesItem from "./ActiveMilestonesItem";
 import { useState, useCallback } from "react";
 import Button from "../../components/Button";
-import { useNavigation } from "@react-navigation/native";
+import ActiveMilestonesItem from "./ActiveMilestonesItem";
+import useProjects from "../../context/projects/useProjects";
 
 export default function ActiveMilestones() {
   
-  const { projects, refetchProjects } = useProjects();
+  const { projects, refetchProjects,isLoading } = useProjects();
   const [refreshProjects, setRefreshProjects] = useState(false);
   const navigation = useNavigation();
 
@@ -23,6 +23,10 @@ export default function ActiveMilestones() {
   }, [refetchProjects]);
 
   const notCompletedProjects = projects.filter((project) => !project.completed);
+
+  if(isLoading || !notCompletedProjects){
+    return (<ActivityIndicator size="large" style={{flex:1,justifyContent:'center',alignItems:'center'}}></ActivityIndicator>)
+  }
 
   return (
     <SafeAreaView>
