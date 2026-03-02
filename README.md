@@ -1,7 +1,7 @@
 
 # Functional Guide
 
-1. **Project Overview**
+1. ## **Project Overview**
 
 - **Application Name:** My Milestones
 
@@ -11,17 +11,17 @@
 
 ---
 
-2. **User Access & Permissions**
+2. ## **User Access & Permissions**
 
-- **Guest User (Not Authenticated):** Guest users only see the auth screene Login/Register, to use the app they need to register or login
+**Guest User (Not Authenticated):** Guest users only see the auth screene Login/Register, to use the app they need to register or login
 
-- **Authenticated User(Logged in User):** Users that are logged in are redirected to the main page with their projects. From there, if he has a created project he can click on it and he will be redirecred to the details page of the project. From there he can update the tasks of the projects, delete the project or complete it. Completed projects are moved to the My Profile screen where users can check their upcoming projects or the ones they have completed. If the user wants to create a new project a button in the bottom tabs navigator will redirect them to the create project page.
+**Authenticated User(Logged in User):** Users that are logged in are redirected to the main page with their projects. From there, if he has a created project he can click on it and he will be redirecred to the details page of the project. From there he can update the tasks of the projects, delete the project or complete it. Completed projects are moved to the My Profile screen where users can check their upcoming projects or the ones they have completed. If the user wants to create a new project a button in the bottom tabs navigator will redirect them to the create project page.
 
 ---
 
-3. **Authentication & Session Handling**
+3. ## **Authentication & Session Handling**
 
-- **Authentication Flow:**
+**Authentication Flow:**
 
 - When the app starts: Firebase checks if a user is already logged in, onAuthStateChanged is called once with the current user or null.
 
@@ -31,7 +31,7 @@
 
 - On logout: On logout firebase clears the tokens and onAuthStateChanged fires with null, and the user is redirected to the login screen
 
-- **Session Persistence**
+**Session Persistence**
 
 - How is the user session stored: Tokens are stored automatically on the device, next time the app opens, Firebase restores the session
 
@@ -39,15 +39,15 @@
 
 ---
 
-4. **Navigation Structure**
+4. ## **Navigation Structure**
 
-- **Root Navigation Logic:** The app checks if there is an authenticated user, shows a spinner while checking, if there is a user it navigates to main screen, if not to the auth flow login/register screens.
+**Root Navigation Logic:** The app checks if there is an authenticated user, shows a spinner while checking, if there is a user it navigates to main screen, if not to the auth flow login/register screens.
 
-- **Main Navigation:**
+ **Main Navigation:**
 
 - For main navigation i use Bottom Tabs, with three tabs Milestones, Create Project and My Profile, on some of the screens like project details the tab is hidden
 
-- **Nested Navigation:**
+**Nested Navigation:**
 
 - For nested navigation is use Stack inside Tabs navigation, **Milestones Tab -> ActiveMilestones and ProjectDetails** and **Profile Tab -> Profile and ProjectDetails**
 
