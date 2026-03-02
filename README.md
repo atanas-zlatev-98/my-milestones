@@ -7,17 +7,21 @@
 
 - **Application Category / Topic:** **Project Tracker**
 
-- **Main Purpose (2–4 sentences):** The main purpose of the app is to track the progress of your projects, to check deadlines and what is completed and what is not, it helps the user to keep track of the project progress
+- **Main Purpose (2–4 sentences):** 
 
----
+- The main purpose of the app is to track the progress of your projects, to check deadlines and what is completed and what is not, it helps the user to keep track of the project progress
+
 
 ## 2. **User Access & Permissions**
 
-**Guest User (Not Authenticated):** Guest users only see the auth screene Login/Register, to use the app they need to register or login
+**Guest User (Not Authenticated):** 
 
-**Authenticated User(Logged in User):** Users that are logged in are redirected to the main page with their projects. From there, if he has a created project he can click on it and he will be redirecred to the details page of the project. From there he can update the tasks of the projects, delete the project or complete it. Completed projects are moved to the My Profile screen where users can check their upcoming projects or the ones they have completed. If the user wants to create a new project a button in the bottom tabs navigator will redirect them to the create project page.
+- Guest users only see the auth screene Login/Register, to use the app they need to register or login
 
----
+**Authenticated User(Logged in User):** 
+
+- Users that are logged in are redirected to the main page with their projects. From there, if he has a created project he can click on it and he will be redirecred to the details page of the project. From there he can update the tasks of the projects, delete the project or complete it. Completed projects are moved to the My Profile screen where users can check their upcoming projects or the ones they have completed. If the user wants to create a new project a button in the bottom tabs navigator will redirect them to the create project page.
+
 
 ## 3. **Authentication & Session Handling**
 
@@ -37,11 +41,12 @@
 
 - How is automatic login handled after app restart: Firebase SDK starts when the app runs, checks for saved auth tokens on the device, if found it checks if the token is still valid, if its not it refreshes the token in the background automatically.
 
----
 
 ## 4. **Navigation Structure**
 
-**Root Navigation Logic:** The app checks if there is an authenticated user, shows a spinner while checking, if there is a user it navigates to main screen, if not to the auth flow login/register screens.
+**Root Navigation Logic:** 
+
+- The app checks if there is an authenticated user, shows a spinner while checking, if there is a user it navigates to main screen, if not to the auth flow login/register screens.
 
  **Main Navigation:**
 
