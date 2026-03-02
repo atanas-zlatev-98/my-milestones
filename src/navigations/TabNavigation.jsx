@@ -47,13 +47,14 @@ export default function TabNavigator() {
 
       <Tabs.Screen name="CreateProject" component={CreateProject}
         options={{
+          title: "Create Project",
           headerTitle: "",
           headerShown: true,
           headerStyle: { backgroundColor: "#FFF" },
           headerShadowVisible: false}}>
       </Tabs.Screen>
 
-      <Tabs.Screen name="MyProfile" component={ProfileNavigation} options={{ title: "My Profile" }}></Tabs.Screen>
+      <Tabs.Screen name="MyProfile" component={ProfileNavigation} options={({ route }) => ({ tabBarStyle: getTabBarVisibility(route),title:'My Profile' })}></Tabs.Screen>
 
     </Tabs.Navigator>
   );
