@@ -1,41 +1,41 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { useEffect, useState } from "react";
 
 
-export function usePersistedState(key, defaultValue) {
-    const [currentState,setCurrentState] = useState(defaultValue);
+// export function usePersistedState(key, defaultValue) {
+//     const [currentState,setCurrentState] = useState(defaultValue);
 
-    useEffect(()=>{
+//     useEffect(()=>{
 
-        async function loadState() {
-           try{
-                const storedState = await AsyncStorage.getItem(key);
+//         async function loadState() {
+//            try{
+//                 const storedState = await AsyncStorage.getItem(key);
 
-                if(!storedState){
-                    return;
-                }
+//                 if(!storedState){
+//                     return;
+//                 }
 
-            setCurrentState(JSON.parse(storedState));
+//             setCurrentState(JSON.parse(storedState));
 
-           }catch(err){
-                console.log(`Error loading state: ${err.message}`);
-           }
-        }
+//            }catch(err){
+//                 console.log(`Error loading state: ${err.message}`);
+//            }
+//         }
 
-        loadState();
+//         loadState();
 
-    },[key]);
+//     },[key]);
 
-    const setPersistedState = async(newState) =>{
-        try{
-            const value = typeof newState === "function" ? newState(currentState) : newState;
+//     const setPersistedState = async(newState) =>{
+//         try{
+//             const value = typeof newState === "function" ? newState(currentState) : newState;
 
-            setCurrentState(value);
-            await AsyncStorage.setItem(key,JSON.stringify(value));
-        }catch(err){
-            console.log('State not saved!', err.message);
-        }
-    }
+//             setCurrentState(value);
+//             await AsyncStorage.setItem(key,JSON.stringify(value));
+//         }catch(err){
+//             console.log('State not saved!', err.message);
+//         }
+//     }
 
-    return [currentState,setPersistedState];
-}
+//     return [currentState,setPersistedState];
+// }

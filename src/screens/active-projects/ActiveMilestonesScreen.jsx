@@ -27,26 +27,24 @@ export default function ActiveMilestones() {
   return (
     <SafeAreaView>
       <View style={activeMilestonesStyle.header}>
-        {/* <Text>asd</Text> */}
+    
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>My Milestones</Text>
-        <Text
-          style={{
-            fontWeight: "bold",
-            position: "absolute",
-            right: 10,
-            alignItems: "center",
-          }}
-        >
+
+        <Text style={{ fontWeight: "bold", position: "absolute", right: 10,alignItems: "center"}}>
           Active: {notCompletedProjects.length}
         </Text>
+
       </View>
-      {/* <Text>Active MileStones {projects.length}</Text> */}
+
       <View style={{ padding: 10,height:"100%",justifyContent: "center",alignItems: "center" }}>
+        
         {notCompletedProjects.length === 0 ? (
           <View style={activeMilestonesStyle.activeProjects}>
+            
             <Text style={activeMilestonesStyle.text}>
               No active Projects
             </Text>
+
             <Button title="Create New Project" style={activeMilestonesStyle} onPress={() => navigation.navigate("CreateProject")} />
           </View>
         ) : (

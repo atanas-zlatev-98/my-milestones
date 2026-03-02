@@ -1,0 +1,55 @@
+import { StyleSheet } from "react-native";
+
+export const activeMilestonesItemStyle = StyleSheet.create({
+  bgImage: {
+    width: "100%",
+    height: 100,
+    borderRadius: 10,
+    overflow: "hidden",
+    marginBottom: 10,
+    justifyContent: "center",
+  },
+  container: {
+    backgroundColor: "#0000007e",
+    width: "100%",
+    height: "100%",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    padding: 10,
+  },
+  fieldText: {
+    backgroundColor: "#ffffff",
+    alignSelf: "flex-start",
+    color: "#5458b5",
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 5,
+    fontWeight:"bold",
+  },
+  titleText: { fontWeight: "bold", fontSize: 20, color: "#ffffff", flex:1 },
+  completedTasks:{
+    alignItems:'flex-end',
+    flexDirection:'column',
+    justifyContent:'space-between',
+    paddingBottom:2,
+    paddingTop:2,
+    paddingLeft:5,
+    paddingRight:5,
+    borderRadius:5,
+    color:'#5458b5',
+    fontWeight:'bold',
+    fontSize:12,
+  },
+  tasks:{
+    alignSelf: "flex-end",
+    color:'#5458b5',
+    fontWeight:'bold',
+    fontSize:12,
+    paddingBottom:2,
+    paddingTop:2,
+    paddingLeft:5,
+    paddingRight:5,
+    borderRadius:5,
+    backgroundColor:'#ffffff',
+  }
+});

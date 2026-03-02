@@ -11,8 +11,8 @@ export default function Profile() {
 
   const { user, logout } = useAuth();
   const {projects} = useProjects();
-  const [showCompleted, setShowCompleted] = useState(true);
-  const [showTotal, setShowTotal] = useState(false);
+  const [showCompleted, setShowCompleted] = useState(false);
+  const [showTotal, setShowTotal] = useState(true);
 
   const completedProjects = projects.filter(project => project.completed);
   const notCompleted = projects.filter(project => !project.completed);  

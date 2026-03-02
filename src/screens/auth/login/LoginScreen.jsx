@@ -42,42 +42,42 @@ export default function Login() {
   return (
     <>
       {!isLoading ? (<SafeAreaView style={{ flex: 1 }} edges={["left", "right", "bottom"]}>
+        
     <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 
       <View style={loginStyle.container}>
+
         <View style={loginStyle.content}>
-          <Image
-            style={loginStyle.logo}
-            source={{
-              uri: "https://res.cloudinary.com/dcdmmuhf2/image/upload/v1769720604/my-milestones/logo-demo-2_dtu9w7.png",
-            }}
-          />
+          <Image style={loginStyle.logo} source={{uri: "https://res.cloudinary.com/dcdmmuhf2/image/upload/v1769720604/my-milestones/logo-demo-2_dtu9w7.png"}}/>
 
           <View style={loginStyle.inputContainer}>
+
             <Text style={loginStyle.welcomeBackText}>Welcome back!</Text>
+
             {error.loginError && <Text style={{ color: "red", fontWeight:'bold' }}>{error.loginError}</Text>}
+
             <View style={loginStyle.group}>
+
               <Text style={loginStyle.groupText}>
-                Email {validationErrors.email && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.email}</Text>)}
+                Email {validationErrors.email && 
+                (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.email}</Text>)}
               </Text>
 
               <View style={loginStyle.iconContainer}>
+
                 <View style={loginStyle.icon}>
                   <Mail size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput
-                  style={loginStyle.inputField}
-                  placeholder="Enter email..."
-                  value={email}
-                  onChangeText={setEmail}
-                ></TextInput>
+                <TextInput style={loginStyle.inputField} placeholder="Enter email..." value={email} onChangeText={setEmail}></TextInput>
               </View>
             </View>
 
             <View style={loginStyle.group}>
+
               <Text style={loginStyle.groupText}>
-                Password {validationErrors.password && (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.password}</Text>)}
+                Password {validationErrors.password && 
+                (<Text style={{ color: "red", fontSize: 12, marginBottom: 4,fontWeight:'bold' }}>{validationErrors.password}</Text>)}
               </Text>
 
               <View style={loginStyle.iconContainer}>
@@ -85,9 +85,7 @@ export default function Login() {
                   <KeyRound size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput
-                  secureTextEntry={true}
-                  style={loginStyle.inputField}
+                <TextInput secureTextEntry={true} style={loginStyle.inputField}
                   placeholder="Enter password..."
                   value={password}
                   onChangeText={setPassword}
@@ -95,18 +93,17 @@ export default function Login() {
               </View>
             </View>
 
-            <Button
-              title="Login"
-              style={loginStyle}
-              onPress={handleLogin}
-            ></Button>
+            <Button title="Login" style={loginStyle} onPress={handleLogin}></Button>
 
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+
               <Text style={{fontWeight:'bold'}}>
                 Don't have an account?{" "}
                 <Text style={loginStyle.dontHaveAccount}>Register here.</Text>
               </Text>
+
             </TouchableOpacity>
+
           </View>
         </View>
       </View>

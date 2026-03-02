@@ -10,9 +10,7 @@ export default function RootNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
 
   if(isLoading){
-    return (
-      <ActivityIndicator size="large" style={{flex:1,justifyContent:'center',alignItems:'center'}}></ActivityIndicator>
-    )
+    return ( <ActivityIndicator size="large" style={{flex:1,justifyContent:'center',alignItems:'center'}}></ActivityIndicator>)
   }
 
 

@@ -24,54 +24,37 @@ export default function TabNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ color, size, focused }) => {
+
           if (route.name === "Milestones") {
-            return (
-              <Home color={color} size={size} strokeWidth={focused ? 2.5 : 2} />
-            );
+            return ( <Home color={color} size={size} strokeWidth={focused ? 2.5 : 2} /> );
           }
 
           if (route.name === "CreateProject") {
-            return (
-              <CirclePlus
-                color={color}
-                size={size}
-                strokeWidth={focused ? 2.5 : 2}
-              />
-            );
+            return (<CirclePlus color={color} size={size} strokeWidth={focused ? 2.5 : 2}/>);
           }
 
           if (route.name === "MyProfile") {
-            return (
-              <User color={color} size={size} strokeWidth={focused ? 2.5 : 2} />
-            );
+            return ( <User color={color} size={size} strokeWidth={focused ? 2.5 : 2} />);
           }
         },
         tabBarActiveTintColor: "#5458b5",
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tabs.Screen
-        name="Milestones"
-        component={MilestonesNavigation}
-        options={({ route }) => ({
-          tabBarStyle: getTabBarVisibility(route),
-        })}
-      ></Tabs.Screen>
-      <Tabs.Screen
-        name="CreateProject"
-        component={CreateProject}
+      <Tabs.Screen name="Milestones" component={MilestonesNavigation} 
+        options={({ route }) => ({ tabBarStyle: getTabBarVisibility(route) })}>
+      </Tabs.Screen>
+
+      <Tabs.Screen name="CreateProject" component={CreateProject}
         options={{
           headerTitle: "",
           headerShown: true,
           headerStyle: { backgroundColor: "#FFF" },
-          headerShadowVisible: false,
-        }}
-      ></Tabs.Screen>
-      <Tabs.Screen
-        name="MyProfile"
-        component={ProfileNavigation}
-        options={{ title: "My Profile" }}
-      ></Tabs.Screen>
+          headerShadowVisible: false}}>
+      </Tabs.Screen>
+
+      <Tabs.Screen name="MyProfile" component={ProfileNavigation} options={{ title: "My Profile" }}></Tabs.Screen>
+
     </Tabs.Navigator>
   );
 }
