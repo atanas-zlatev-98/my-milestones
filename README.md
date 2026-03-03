@@ -3,7 +3,7 @@
 
  - **LINK TO APK** - https://drive.google.com/file/d/16NtubnZ555Xlce_6hibEGugRuQWU6Ctd/view?usp=drive_link
 
-   ## **ENV files are provided for testing purposes** 
+  **ENV files are provided for testing purposes** 
 
  - **Instructions on how to install**
 
@@ -102,8 +102,7 @@
 **Backend Type - Firebase**
 
 - This application uses a real backend powered by Firebase, specifically:
-  Firebase Authentication – for user registration and login
-  Firebase Database for storing data
+  Firebase Authentication – for user registration and login and Firebase Database for storing data
 
 ## 7. **Data Operations (CRUD)**
 
@@ -111,7 +110,7 @@
 
 **Read (GET):**
 
-- Data is fetched in the provider, its fetched from the Cloud Firestore and displayed in the main project-related screens.
+- Data is fetched in the provider, its fetched from the Cloud Firestore and displayed in the screens like Active Milestone, Project Details and Profile.
 
 - How is data fetched: When the application starts, authentication state is checked using: onAuthStateChanged from Firebase. If the user is authenticated, user's data is retrieved from the users collection and stored in global auth context
 
@@ -119,7 +118,7 @@
 
 **How does the user create new data?:**
 
-- Users create new data through the CreateProject screen. User fills in project information (title, tasks, etc.) -> On submit the create project function is called -> A new document is added to the projects collection and the project id is added to the users projects array. The same logic if for the Register screen only the collection and data is different.
+- Users create new data through the Create Project screen. User fills in project information (title, tasks, etc.) -> On submit the create project function is called -> A new document is added to the projects collection and the project id is added to the users projects array. The same logic if for the Register screen only the collection and data is different.
 
 **Update / Delete (Mutation):**
 
