@@ -2,8 +2,7 @@
 
 # dependencies
 node_modules/
-.env
-.env.production
+
 # Expo
 .expo/
 dist/
