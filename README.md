@@ -1,6 +1,8 @@
 
 # Functional Guide
 
+ - **LINK TO APK** - https://drive.google.com/file/d/16NtubnZ555Xlce_6hibEGugRuQWU6Ctd/view?usp=drive_link
+
 ## 1. **Project Overview**
 
 **Application Name:** My Milestones
