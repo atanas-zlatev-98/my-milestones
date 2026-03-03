@@ -71,7 +71,7 @@ export default function Login() {
                   <Mail size={24} color={"#5458b5"} />
                 </View>
 
-                <TextInput style={loginStyle.inputField} placeholder="Enter email..." value={email} onChangeText={setEmail}></TextInput>
+                <TextInput style={loginStyle.inputField} placeholder="Enter email..." placeholderTextColor={'#676767'} value={email} onChangeText={setEmail}></TextInput>
               </View>
             </View>
 
@@ -89,6 +89,7 @@ export default function Login() {
 
                 <TextInput secureTextEntry={true} style={loginStyle.inputField}
                   placeholder="Enter password..."
+                  placeholderTextColor={'#676767'}
                   value={password}
                   onChangeText={setPassword}
                 ></TextInput>

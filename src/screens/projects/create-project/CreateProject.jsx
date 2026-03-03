@@ -176,7 +176,7 @@ export default function CreateProject() {
                     Project Name
                   </Text>
 
-                  <TextInput style={createProjectStyle.inputField} placeholder="Enter your projects name..." onChangeText={setProjectName} value={projectName}/>
+                  <TextInput style={createProjectStyle.inputField} placeholderTextColor={'#676767'} placeholder="Enter your projects name..." onChangeText={setProjectName} value={projectName}/>
 
                   {errors.projectName && (
                     <Text style={createProjectStyle.error}>
@@ -192,7 +192,7 @@ export default function CreateProject() {
                   </Text>
 
                   <View>
-                    <TextInput style={createProjectStyle.inputField} placeholder="Field: Web, Mobile, etc..." onChangeText={setProjectField} value={projectField}/>
+                    <TextInput style={createProjectStyle.inputField} placeholderTextColor={'#676767'} placeholder="Field: Web, Mobile, etc..." onChangeText={setProjectField} value={projectField}/>
                   </View>
 
                   {errors.projectField && (
@@ -213,6 +213,7 @@ export default function CreateProject() {
                       <TextInput
                         style={createProjectStyle.inputField}
                         placeholder="Enter your projects tasks..."
+                        placeholderTextColor={'#676767'}
                         onChangeText={setProjectTaskName}
                         onSubmitEditing={handleProjectTasks}
                         value={projectTaskName}
@@ -258,6 +259,7 @@ export default function CreateProject() {
                         <TextInput
                           style={createProjectStyle.inputField}
                           placeholder="Select a deadline..."
+                          placeholderTextColor={'#676767'}
                           editable={false}
                           value={deadline ? deadline.toLocaleDateString() : ""}
                         />
