@@ -27,19 +27,25 @@
 
 **Authentication Flow:**
 
-- **When the app starts:** Firebase checks if a user is already logged in, onAuthStateChanged is called once with the current user or null.
+**When the app starts:** 
+- Firebase checks if a user is already logged in, onAuthStateChanged is called once with the current user or null.
 
-- **Checking Auth Status:** Firebase reads tokens from the device storage automatically, if the token is valid returns a user obejct if not sets user to null
+**Checking Auth Status:** 
+- Firebase reads tokens from the device storage automatically, if the token is valid returns a user obejct if not sets user to null
 
-- **Successful login or registration:** User enters credentials then firebase verifies them, then creates a token and saves it on the device, onAuthStateChanged fires with the logged-in user
+**Successful login or registration:** 
+- User enters credentials then firebase verifies them, then creates a token and saves it on the device, onAuthStateChanged fires with the logged-in user
 
-- **On logout:** On logout firebase clears the tokens and onAuthStateChanged fires with null, and the user is redirected to the login screen
+**On logout:** 
+- On logout firebase clears the tokens and onAuthStateChanged fires with null, and the user is redirected to the login screen
 
 **Session Persistence**
 
-- **How is the user session stored:** Tokens are stored automatically on the device, next time the app opens, Firebase restores the session
+**How is the user session stored:** 
+- Tokens are stored automatically on the device, next time the app opens, Firebase restores the session
 
-- **How is automatic login handled after app restart:** Firebase SDK starts when the app runs, checks for saved auth tokens on the device, if found it checks if the token is still valid, if its not it refreshes the token in the background automatically.
+**How is automatic login handled after app restart:** 
+- Firebase SDK starts when the app runs, checks for saved auth tokens on the device, if found it checks if the token is still valid, if its not it refreshes the token in the background automatically.
 
 
 ## 4. **Navigation Structure**
@@ -59,7 +65,7 @@
 
 ## 5. **List → Details Flow**
 
-1. **List / Overview Screen:**
+**List / Overview Screen:**
 
 **What type of data is displayed?:**
 
@@ -69,7 +75,7 @@
 
 - The user can tap on a project item and navigate to the project details screen, then delete the project if he wants or update the project and project tasks, if all tasks are completed the user can complete the whole project and remove it from the list.
 
-2. **Details Screen**
+**Details Screen**
 
 **How is navigation triggered?:**
 
@@ -91,7 +97,7 @@
 
 **Describe the implemented data operations:**
 
-1. **Read (GET):**
+**Read (GET):**
 
 - Data is fetched in the provider, its fetched from the Cloud Firestore and displayed in the main project-related screens.
 
