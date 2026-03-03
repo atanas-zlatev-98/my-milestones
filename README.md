@@ -103,13 +103,13 @@
 
 - How is data fetched: When the application starts, authentication state is checked using: onAuthStateChanged from Firebase. If the user is authenticated, user's data is retrieved from the users collection and stored in global auth context
 
-2. **Create (POST):**
+**Create (POST):**
 
 **How does the user create new data?:**
 
 - Users create new data through the CreateProject screen. User fills in project information (title, tasks, etc.) -> On submit the create project function is called -> A new document is added to the projects collection and the project id is added to the users projects array. The same logic if for the Register screen only the collection and data is different.
 
-3. **Update / Delete (Mutation):**
+**Update / Delete (Mutation):**
 
 **Which operation is implemented (Update and/or Delete)?** - Both Update and Delete operations are implemented.
 
@@ -146,7 +146,7 @@ Form Inputs:
 
 - **Describe at least three validated fields: - Field name and rules: - Field name and rules: - Field name with multiple validation rules:**
 
-1. **Create Project:**
+**Create Project:**
 
 - Icon Image (image picker) - Image is required
 - Background Image (image picker) - Image is required
@@ -156,7 +156,7 @@ Form Inputs:
 - Project Deadline (date picker) - Required, must be a future date
 
 
-2. **Register**
+**Register**
 
 - Profile Image(image picker) - Image is required
 - Name - Required, min length 3 and max length 15
@@ -165,7 +165,7 @@ Form Inputs:
 - Confirm Password - Required, must match password
 
 
-3. **Login**
+**Login**
 
 - Email: Required
 - Password: Required
@@ -180,12 +180,12 @@ Form Inputs:
 
 **Usage Description?**
 
-1. **Where is it used?**
+**Where is it used?**
 
 - Register Screen
 - Create Project Screen
 
-2. **What functionality does it provide?**
+**What functionality does it provide?**
 
 - Used to provide images for user and projects, User for profile picture and projects for icon and background images.
 
@@ -206,20 +206,20 @@ Form Inputs:
 
 - **Describe how the app handles: - Authentication errors - Network or data errors - Empty or missing data states**
 
-1. **Authentication Errors**
+**Authentication Errors**
 
 - Firebase errors are cought by try/catch blocks
 - Error messages from Firebase (e.g., invalid email or password, Project not found, Email already in use) are captured and displayed to the user.
 - The UI prevents navigation to protected screens if authentication fails.
 - On logout or failed auth, the RootNavigator automatically redirects to the Login screen.
 
-2. **Network or Data Errors**
+**Network or Data Errors**
 
 - All Firestore calls are wrapped in try/catch.
 - Errors are stored in the ProjectsContext state
 - Loading indicators (ActivityIndicator) prevent duplicate actions during network delays.
 
-3. **Empty or Missing Data States**
+**Empty or Missing Data States**
 
 - The ActiveMilestones screen displays an empty state (e.g., “No active Projects”) instead of breaking the UI.
 - Missing tasks - Validation prevents creating a project without at least 3 tasks.
