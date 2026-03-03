@@ -3,11 +3,11 @@
 
 ## 1. **Project Overview**
 
-- **Application Name:** My Milestones
+**Application Name:** My Milestones
 
-- **Application Category / Topic:** **Project Tracker**
+**Application Category / Topic:** **Project Tracker**
 
-- **Main Purpose (2–4 sentences):** 
+**Main Purpose (2–4 sentences):** 
 
 - The main purpose of the app is to track the progress of your projects, to check deadlines and what is completed and what is not, it helps the user to keep track of the project progress
 
@@ -57,73 +57,164 @@
 - For nested navigation is use Stack inside Tabs navigation, **Milestones Tab -> ActiveMilestones and ProjectDetails** and **Profile Tab -> Profile and ProjectDetails**
 
 
-5. List → Details Flow
+## 5. **List → Details Flow**
 
-List / Overview Screen
+**List / Overview Screen:**
 
-· What type of data is displayed?
+**What type of data is displayed?:**
 
-· How does the user interact with the list?
+- The main screen displays a list of projects created by the currently authenticated user. The data is retrieved from the projects collection in Firestore using the getAllProjects(userId) service function.
 
-Details Screen
+**How does the user interact with the list?:**
 
-· How is navigation triggered?
+- The user can tap on a project item and navigate to the project details screen, then delete the project if he wants or update the project and project tasks, if all tasks are completed the user can complete the whole project and remove it from the list.
 
-· What data is received via route parameters?
+**Details Screen**
 
-6. Data Source & Backend
+**How is navigation triggered?:**
 
-Backend Type
+- The navigation to Project Details is triggered when a user taps on a project from one of these screen: ActiveMilestones and Profile
 
-· Simulated backend (MockAPI / DummyJSON)
+**What data is received via route parameters?:**
 
-· Real backend (Firebase or equivalent)
+- only the project id () => navigation.navigate('ProjectDetails', { id: project.id }) and in the details page const { id } = route.params;
 
-7. Data Operations (CRUD)
+## 6. **Data Source & Backend**
 
-Describe the implemented data operations:
+**Backend Type - Firebase**
 
-Read (GET)
+- This application uses a real backend powered by Firebase, specifically:
+  Firebase Authentication – for user registration and login
+  Firebase Database for storing data
 
-· Where is data fetched and displayed?
+## 7. **Data Operations (CRUD)**
 
-Create (POST)
+**Describe the implemented data operations:**
 
-· How does the user create new data?
+**Read (GET):**
 
-Update / Delete (Mutation)
+- Data is fetched in the provider, its fetched from the Cloud Firestore and displayed in the main project-related screens.
 
-· Which operation is implemented (Update and/or Delete)?
+- How is data fetched: When the application starts, authentication state is checked using: onAuthStateChanged from Firebase. If the user is authenticated, user's data is retrieved from the users collection and stored in global auth context
 
-· How is the UI updated after the change?
+**Create (POST):**
 
-8. Forms & Validation
+**How does the user create new data?:**
 
-Forms Used
+- Users create new data through the CreateProject screen. User fills in project information (title, tasks, etc.) -> On submit the create project function is called -> A new document is added to the projects collection and the project id is added to the users projects array. The same logic if for the Register screen only the collection and data is different.
 
-9. List all forms in the application:
+**Update / Delete (Mutation):**
 
-Validation Rules
+**Which operation is implemented (Update and/or Delete)?** - Both Update and Delete operations are implemented.
 
-Describe at least three validated fields: - Field name and rules: - Field name and rules: - Field name with multiple validation rules:
+- Project details screen - Updating a task, when a user completes a task in a project, a function fires where the task is found in the firebase storage and updated using updateDoc.
 
-10. Native Device Features
+- Project details screen - Completing a project, when a user completes a project, the project completed field goes from false to true.
 
-Used Native Feature(s)
+- Project details screen - Deleting a project, when a user deletes a project, the project is removed from the project collection and then removed from the user projects array.
 
-Select and describe at least one: - Camera / Image Picker - Location / Maps - Biometrics - Sensors
+**How is the UI updated after the change?:**
 
-Usage Description
+- The UI is updated using React Context state management through the ProjectsProvider. The application follows a state-driven UI approach, meaning that whenever the projects state changes, all components consuming the ProjectsContext automatically re-render with the updated data.
 
-· Where is it used?
+## 8. **Forms & Validation**
 
-· What functionality does it provide?
+**Forms Used:**
+
+- Create Project Form - The primary form implemented in the application is the Create Project form, located in the CreateProject screen.This form allows authenticated users to create a new project and define its structure before saving it to the backend.
+
+Form Inputs:
+- Icon Image (image picker)
+- Background Image (image picker)
+- Project Name (text input)
+- Project Field (text input)
+- Project Tasks (dynamic task list input)
+- Project Deadline (date picker)
+
+- Users can dynamically add multiple tasks before submitting the form.
+
+- Other screens containing form inputs are: Register Screen and Login Screen.
+
+## 9. **List all forms in the application:**
+
+**Validation Rules:**
+
+- **Describe at least three validated fields: - Field name and rules: - Field name and rules: - Field name with multiple validation rules:**
+
+- **Create Project:**
+
+- Icon Image (image picker) - Image is required
+- Background Image (image picker) - Image is required
+- Project Name (text input) - Required, min length 3 and max length 20
+- Project Field (text input) - Required, min length 3 and max length 20
+- Project Tasks (dynamic task list input) - Required, must contain atleast 3 tasks
+- Project Deadline (date picker) - Required, must be a future date
+
+- **Register**
+
+- Profile Image(image picker) - Image is required
+- Name - Required, min length 3 and max length 15
+- Email - Required, must be email and max length 50
+- Password - Required, must contain letters and numbers, min length 6
+- Confirm Password - Required, must match password
+
+- **Login**
+
+- Email: Required
+- Password: Required
+
+**If any of the validation fails the user cannot create a project or register.**
+
+## 10. **Native Device Features**
+
+**Used Native Feature(s)**
+
+- **Select and describe at least one: - Camera / Image Picker - Location / Maps - Biometrics - Sensors:** - The project uses Image Picker
+
+**Usage Description?**
+
+- **Where is it used?**
+
+- Register Screen
+- Create Project Screen
+
+- **What functionality does it provide?**
+
+- Used to provide images for user and projects, User for profile picture and projects for icon and background images.
 
 
-11. Typical User Flow
+## 11. **Typical User Flow**
 
-Describe a normal user journey through the app: 1. 2. 3. 4.
+- **Describe a normal user journey through the app: 1. 2. 3. 4.**
 
-12. Error & Edge Case Handling
+- 1. **Launch App**
+- 2. **Authenticate**
+- 3. **View Projects**
+- 4. **Create or Manage Projects**
+- 5. **Update Tasks**
+- 6. **Complete/Delete Projects**
+- 7. **Logout**
 
-Describe how the app handles: - Authentication errors - Network or data errors - Empty or missing data states
+## 12. **Error & Edge Case Handling**
+
+- **Describe how the app handles: - Authentication errors - Network or data errors - Empty or missing data states**
+
+- **Authentication Errors**
+
+- Firebase errors are cought by try/catch blocks
+- Error messages from Firebase (e.g., invalid email or password, Project not found, Email already in use) are captured and displayed to the user.
+- The UI prevents navigation to protected screens if authentication fails.
+- On logout or failed auth, the RootNavigator automatically redirects to the Login screen.
+
+- **Network or Data Errors**
+
+- All Firestore calls are wrapped in try/catch.
+- Errors are stored in the ProjectsContext state
+- Loading indicators (ActivityIndicator) prevent duplicate actions during network delays.
+
+- **Empty or Missing Data States**
+
+- The ActiveMilestones screen displays an empty state (e.g., “No active Projects”) instead of breaking the UI.
+- Missing tasks - Validation prevents creating a project without at least 3 tasks.
+- Missing Images - Users cannot submit a project unless icon and background images are selected. Errors are displayed.
+- Non-existent Project - When fetching or updating a project by ID, the app first checks if the project exists
