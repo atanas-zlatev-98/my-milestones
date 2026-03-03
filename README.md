@@ -178,7 +178,7 @@ Form Inputs:
 
 - **Select and describe at least one: - Camera / Image Picker - Location / Maps - Biometrics - Sensors:** - The project uses Image Picker
 
-**Usage Description?**
+**Usage Description:**
 
 **Where is it used?**
 
