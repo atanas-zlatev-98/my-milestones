@@ -3,6 +3,10 @@
 
  - **LINK TO APK** - https://drive.google.com/file/d/16NtubnZ555Xlce_6hibEGugRuQWU6Ctd/view?usp=drive_link
 
+  **Sample user with created data:** 
+  - user: admin@abv.bg 
+  - password: 123456q
+
   **ENV files are provided for testing purposes** 
 
  - **Instructions on how to install**
