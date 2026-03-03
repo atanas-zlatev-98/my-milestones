@@ -7,6 +7,10 @@
   - user: admin@abv.bg 
   - password: 123456q
 
+  **Sample user without created data:**
+  - user: lion@example.bg
+  - password: 123456q
+
   **ENV files are provided for testing purposes** 
 
  - **Instructions on how to install**
