@@ -64,6 +64,7 @@ export const createProjectStyle = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     flex: 1,
+    color:'black'
   },
   btn: {
     backgroundColor: "#5458b5",

@@ -64,7 +64,8 @@ export const loginStyle = StyleSheet.create({
     borderTopRightRadius:5,
     borderBottomRightRadius:5,
     fontSize:20,
-    flex:1
+    flex:1,
+    color:'black'
   },
   dontHaveAccount:{
     textDecorationLine:"underline",

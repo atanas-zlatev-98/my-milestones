@@ -40,6 +40,7 @@ export const registerStyle = StyleSheet.create({
   },
   inputField: {
     backgroundColor: "#f7f7f7",
+    color:'black',
     borderRadius: 5,
     padding: 10,
     fontSize: 20,
