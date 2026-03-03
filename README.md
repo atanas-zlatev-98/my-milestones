@@ -3,12 +3,12 @@
 
  - **LINK TO APK** - https://drive.google.com/file/d/16NtubnZ555Xlce_6hibEGugRuQWU6Ctd/view?usp=drive_link
 
+   ## **ENV files are provided for testing purposes** 
+
  - **Instructions on how to install**
 
-   ## **ENV files are provided for testing purposes** 
- 
  - App is build using **EXPO GO**
- 
+
  - Clone/Download the project -> open terminal -> type npm install -> project should work since i provided the env files so you can test it.
 
  - How to build the app: in the terminal type -> npm run prebuild -> npm run build:apk
